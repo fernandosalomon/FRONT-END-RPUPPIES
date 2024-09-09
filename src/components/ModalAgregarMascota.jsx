@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 import styleGeneral from '../../src/index.module.css';
 import { Modal, Button, Form } from 'react-bootstrap';
 
@@ -205,10 +207,42 @@ function ModalAgregarMascota({ show, handleClose }) {
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        const url = 'YOUR_API_URL';
         if(nombreValido === 1 && fechaDeNacimientoValido === 1 && sexoValido === 1 && especieValido === 1 && razaValido === 1 && colorDePeloValido === 1 && pesoKgValido === 1 && esterilizadoValido === 1 && domicilioValido === 1){
-            console.log("Exito");
+            try {
+                const response = await axios.post(url, mascotaDatos);
+                if (response.status === 200) {
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: 'Mascota creada correctamente',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        background: "#eaeef4",
+                        timer: 1500
+                    }).then(() => {
+                        resetFormulario();
+                        handleClose();
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un problema al crear la mascota',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar',
+                        background: "#eaeef4",
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema al crear la mascota',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                    background: "#eaeef4",
+                });
+            }
         }
         else{
             if(nombreValido === 0 || nombreValido === -1){
@@ -267,7 +301,7 @@ function ModalAgregarMascota({ show, handleClose }) {
 
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="nombre" className="fw-bolder">
-                    Nombre
+                    Nombre*
                     </Form.Label>
                     <Form.Control
                     type="text"
@@ -275,6 +309,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                     placeholder="Ingrese el nombre"
                     minLength="3"
                     maxLength="25"
+                    value={mascotaDatos.nombre}
                     required
                     className={validarEstilo(nombreError)}
                     onChange={handleChangeNombre}
@@ -285,7 +320,7 @@ function ModalAgregarMascota({ show, handleClose }) {
 
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="fecha-nacimiento" className="fw-bolder">
-                    Fecha de Nacimiento
+                    Fecha de Nacimiento*
                     </Form.Label>
                     <Form.Control
                     type="date"
@@ -293,6 +328,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                     placeholder="Ingrese su Fecha de Nacimiento"
                     min="1900-01-01"
                     max="2004-12-31"
+                    value={mascotaDatos.fechaDeNacimiento}
                     required
                     className={validarEstilo(fechaDeNacimientoError)}
                     onChange={handleFechaDeNacimiento}
@@ -302,7 +338,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label className="fw-bolder w-100">Sexo</Form.Label>
+                    <Form.Label className="fw-bolder w-100">Sexo*</Form.Label>
                     <div className="d-flex">
                     <Form.Check
                         inline
@@ -312,8 +348,10 @@ function ModalAgregarMascota({ show, handleClose }) {
                         value="Macho"
                         className="me-3"
                         label={<><i className="fa-solid fa-mars iconoRadioMacho"></i> Macho</>}
+                        checked={mascotaDatos.sexo === 'Macho'}
                         onChange={handleChangeSexo}
                         onBlur={handleChangeSexo}
+                        onFocus={handleChangeSexo}
                     />
                     <Form.Check
                         inline
@@ -322,15 +360,17 @@ function ModalAgregarMascota({ show, handleClose }) {
                         name="sexoRadioOptions"
                         value="Hembra"
                         label={<><i className="fa-solid fa-venus iconoRadioHembra"></i> Hembra</>}
+                        checked={mascotaDatos.sexo === 'Hembra'}
                         onChange={handleChangeSexo}
                         onBlur={handleChangeSexo}
+                        onFocus={handleChangeSexo}
                     />
                     </div>
                     <div id="sexoError" className={`${validarMensaje(sexoError)}`}>Sexo { sexoError === 1?" válido.":" es un campo obligatorio."}</div>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label className="fw-bolder w-100">Especie</Form.Label>
+                    <Form.Label className="fw-bolder w-100">Especie*</Form.Label>
                     <div className="d-flex">
                     <Form.Check
                         inline
@@ -340,6 +380,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                         value="Canino"
                         className="me-3"
                         label={<><i className="fa-solid fa-dog"></i> Canino</>}
+                        checked={mascotaDatos.especie === 'Canino'}
                         onChange={handleChangeEspecie}
                         onBlur={handleChangeEspecie}
                     />
@@ -350,6 +391,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                         name="especieRadioOptions"
                         value="Felino"
                         label={<><i className="fa-solid fa-cat"></i> Felino</>}
+                        checked={mascotaDatos.especie === 'Felino'}
                         onChange={handleChangeEspecie}
                         onBlur={handleChangeEspecie}
                     />
@@ -360,6 +402,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                         name="especieRadioOptions"
                         value="Otros"
                         label={<><i className="fa-solid fa-paw"></i> Otros</>}
+                        checked={mascotaDatos.especie === 'Otros'}
                         onChange={handleChangeEspecie}
                         onBlur={handleChangeEspecie}
                     />
@@ -369,7 +412,7 @@ function ModalAgregarMascota({ show, handleClose }) {
 
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="raza" className="fw-bolder">
-                    Raza
+                    Raza*
                     </Form.Label>
                     <Form.Control
                     type="text"
@@ -377,6 +420,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                     placeholder="Ingrese la raza"
                     minLength="3"
                     maxLength="25"
+                    value={mascotaDatos.raza}
                     required
                     className={validarEstilo(razaError)}
                     onChange={handleChangeRaza}
@@ -387,7 +431,7 @@ function ModalAgregarMascota({ show, handleClose }) {
 
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="color" className="fw-bolder">
-                    Color de pelo
+                    Color de pelo*
                     </Form.Label>
                     <Form.Control
                     type="text"
@@ -395,6 +439,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                     placeholder="Ingrese el color de pelo"
                     minLength="3"
                     maxLength="25"
+                    value={mascotaDatos.colorDePelo}
                     required
                     className={validarEstilo(colorDePeloError)}
                     onChange={handleChangeColorDePelo}
@@ -405,7 +450,7 @@ function ModalAgregarMascota({ show, handleClose }) {
 
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="peso" className="fw-bolder">
-                    Peso (kg)
+                    Peso (kg)*
                     </Form.Label>
                     <Form.Control
                     type="number"
@@ -414,6 +459,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                     min="0"
                     max="10000"
                     step="0.1"
+                    value={mascotaDatos.pesoKg}
                     required
                     className={validarEstilo(pesoKgError)}
                     onChange={handleChangePesoKg}
@@ -423,7 +469,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label className="fw-bolder w-100">Esterilizado/a</Form.Label>
+                    <Form.Label className="fw-bolder w-100">Esterilizado/a*</Form.Label>
                     <div className="d-flex">
                     <Form.Check
                         inline
@@ -433,6 +479,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                         value="Si"
                         className="me-3"
                         label="Sí"
+                        checked={mascotaDatos.esterilizado === 'Si'}
                         onChange={handleChangeEsterilizado}
                         onBlur={handleChangeEsterilizado}
                     />
@@ -443,6 +490,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                         name="esterilizadoRadioOptions"
                         value="No"
                         label="No"
+                        checked={mascotaDatos.esterilizado === 'No'}
                         onChange={handleChangeEsterilizado}
                         onBlur={handleChangeEsterilizado}
                     />
@@ -452,7 +500,7 @@ function ModalAgregarMascota({ show, handleClose }) {
 
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="domicilio" className="fw-bolder">
-                    Domicilio
+                    Domicilio*
                     </Form.Label>
                     <Form.Control
                     type="text"
@@ -460,6 +508,7 @@ function ModalAgregarMascota({ show, handleClose }) {
                     placeholder="Ingrese el domicilio"
                     minLength="3"
                     maxLength="25"
+                    value={mascotaDatos.domicilio}
                     required
                     className={validarEstilo(domicilioError)}
                     onChange={handleChangeDomicilio}
@@ -477,12 +526,16 @@ function ModalAgregarMascota({ show, handleClose }) {
                     id="observaciones"
                     placeholder="Ingrese observaciones"
                     style={{ height: '100px' }}
+                    value={mascotaDatos.observaciones}
                     className={validarEstilo(observacionesError)}
                     onChange={handleChangeObservaciones}
-                    onBlur={handleChangeObservaciones}
                     />
                     <div id="observacionesError" className={`${validarMensaje(observacionesError)}`}>Observaciones {observacionesError === 1?" válido.":" invalido debe tener minimo 10 caracteres."}</div>
                 </Form.Group>
+
+                <Form.Text className="mb-3 fw-bolder">
+                    <p>Campos obligatorios*</p>
+                </Form.Text>
 
                 <div className="d-flex align-items-center justify-content-center">
                     <Button
