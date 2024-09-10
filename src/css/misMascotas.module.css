@@ -103,6 +103,16 @@
     left: -100px;
 }
 
+.contenedorMascotas .cardMascota .cardContenido span.otro{
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    background: linear-gradient(to right, var(--color-3), var(--color-4));
+    transform: rotate(-25deg);
+    top: -50px;
+    left: -100px;
+}
+
 .contenedorMascotas .cardMascota .cardContenido h4{
     font-weight: bold;
     margin: 10px 0px;
@@ -226,6 +236,12 @@
         height: 200px;
         top: -100px;
     }
+
+    .contenedorMascotas .cardMascota .cardContenido span.otro{
+        width: 300px;
+        height: 200px;
+        top: -100px;
+    }
 }
 
 @media (max-width:460px){
@@ -246,6 +262,14 @@
     }
 
     .contenedorMascotas .cardMascota .cardContenido span.gato{
+        width: 100%;
+        height: 210px;
+        top: -90px;
+        left: 0;
+        transform: rotate(0deg);
+    }
+
+    .contenedorMascotas .cardMascota .cardContenido span.otro{
         width: 100%;
         height: 210px;
         top: -90px;

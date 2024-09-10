@@ -59,6 +59,8 @@ const NavbarC = () => {
     }, 1000);
   };
 
+
+  }, [showModalIniciarSesion])
   return (
     <>
       <Navbar
