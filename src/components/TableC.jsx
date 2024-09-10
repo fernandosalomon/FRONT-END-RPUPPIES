@@ -275,10 +275,17 @@ const TableSearchBar = ({ data, handleData, columns }) => {
             onChange={handleChange}
             className="flex-grow-1"
           />
-          <Form.Select onChange={handleSearchParam}>
+          <Form.Select
+            onChange={handleSearchParam}
+            className="searchbar-select"
+          >
             <option value={dataColumns[1]}>Buscar por...</option>
             {dataColumns.map((dataColumnName) => (
-              <option key={dataColumnName} value={dataColumnName}>
+              <option
+                key={dataColumnName}
+                value={dataColumnName}
+                className="searchbar-select__option"
+              >
                 {dataColumnName}
               </option>
             ))}
@@ -330,7 +337,6 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
   });
 
   const handleShowEditarPerfil = (data) => {
-    console.log("HOLA");
     setShowEditarPerfil(true);
     setFormData({
       nombre: data.nombre,
@@ -341,6 +347,16 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
       _id: data._id,
     });
   };
+
+  useEffect(() => {
+    reset({
+      nombre: formData.nombre,
+      apellido: formData.apellido,
+      email: formData.email,
+      telefono: formData.telefono,
+      rol: formData.rol,
+    });
+  }, [formData]);
 
   const handleCloseEditarPerfil = () => setShowEditarPerfil(false);
 
@@ -423,14 +439,6 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
     setTableData(data);
   });
 
-  useEffect(() => {
-    console.log(slice);
-  }, [slice]);
-
-  useEffect(() => {
-    console.log(windowWidth);
-  }, [windowWidth]);
-
   // ZOD
 
   const userSchema = z.object({
@@ -462,13 +470,6 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm({
-    defaultValues: {
-      nombre: formData.nombre,
-      apellido: formData.apellido,
-      email: formData.email,
-      telefono: formData.telefono,
-      rol: formData.telefono,
-    },
     resolver: zodResolver(userSchema),
   });
 
@@ -518,9 +519,7 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
                         <Accordion.Header>
                           <div className="d-flex gap-2 align-items-center w-100 justify-content-between">
                             <div className="accordion-title d-flex align-items-center">
-                              <button className="fs-3 border-0 bg-transparent">
-                                +
-                              </button>
+                              <p className="fs-3 mb-0 me-2">+</p>
                               {tableID === "users"
                                 ? el[tableColumns[0]] +
                                   " " +
@@ -534,7 +533,7 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
                                   handleShowEditarPerfil(el);
                                 }}
                               >
-                                <i class="bi bi-pencil-square"></i>
+                                <i className="bi bi-pencil-square"></i>
                               </button>
 
                               <button
@@ -544,9 +543,9 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
                                 }}
                               >
                                 {el.bloqueado ? (
-                                  <i class="bi bi-ban"></i>
+                                  <i className="bi bi-ban"></i>
                                 ) : (
-                                  <i class="bi bi-check-lg"></i>
+                                  <i className="bi bi-check-lg"></i>
                                 )}
                               </button>
                               <button
@@ -601,7 +600,9 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
                 <tr className="tableRowItems" key={el._id}>
                   {tableColumns.map((columnName) => (
                     <>
-                      <td className="tableCell">{el[columnName]}</td>
+                      <td className="tableCell" key={columnName}>
+                        {el[columnName]}
+                      </td>
                     </>
                   ))}
                   <td className="tableCell">
@@ -611,10 +612,10 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
                         className="btnPersonalized3"
                         style={{ fontSize: "1rem" }}
                         onClick={() => {
-                          // handleShowEditarPerfil(row);
+                          handleShowEditarPerfil(el);
                         }}
                       >
-                        <i class="bi bi-pencil-square"></i>
+                        <i className="bi bi-pencil-square"></i>
                       </button>
 
                       <button
@@ -624,9 +625,9 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
                         }}
                       >
                         {el.bloqueado ? (
-                          <i class="bi bi-ban"></i>
+                          <i className="bi bi-ban"></i>
                         ) : (
-                          <i class="bi bi-check-lg"></i>
+                          <i className="bi bi-check-lg"></i>
                         )}
                       </button>
                       <button
@@ -724,7 +725,6 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
                 type="text"
                 id="telefonoEditar"
                 maxLength="10"
-                pattern="\d{10}"
                 name="telefono"
                 required
                 className="bgInput"
