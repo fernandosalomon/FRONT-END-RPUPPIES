@@ -59,8 +59,6 @@ const NavbarC = () => {
     }, 1000);
   };
 
-
-  }, [showModalIniciarSesion])
   return (
     <>
       <Navbar
@@ -147,7 +145,10 @@ const NavbarC = () => {
                         </button>
                       </Dropdown.Item>
                       <Dropdown.Item>
-                        <Link className="text-decoration-none text-white fw-3">
+                        <Link
+                          className="text-decoration-none text-white fw-3"
+                          to="/mismascotas"
+                        >
                           Mis mascotas
                         </Link>
                       </Dropdown.Item>
