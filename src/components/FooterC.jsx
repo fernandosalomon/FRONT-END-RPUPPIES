@@ -19,14 +19,14 @@ const FooterC = () => {
 
   return (
     <>
-      <Container fluid className="mt-auto pt-4 bgColorPrincipal">
+      <Container fluid className="mt-auto pt-3 bgColorPrincipal">
         <Row>
           <Col
             xs={12}
             md={12}
             lg={3}
             xl={2}
-            className="d-flex justify-content-end justify-content-sm-center align-items-center p-0"
+            className="d-flex justify-content-lg-end justify-content-center align-items-center p-0"
           >
             <Image src={imgLogo} className="logo--img__footer" />
           </Col>
@@ -35,29 +35,36 @@ const FooterC = () => {
             md={8}
             lg={5}
             xl={5}
-            className="ps-5 mb-4 p-0 d-flex gap-2"
+            className="ps-5 p-0 d-flex gap-5 pb-3"
           >
             <div>
-              <h3 className="ms-3 text-white">Servicios</h3>
-              <ul className="list-group">
+              <h3 className="text-white">Servicios</h3>
+              <ul className="list-group ">
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">Castración</Link>
+                  <Link className="nav-link text-white">Consultorio</Link>
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">
-                    Higiene y cuidados
-                  </Link>
+                  <Link className="nav-link text-white">Internación</Link>
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">Algo</Link>
+                  <Link className="nav-link text-white">Laboratorio</Link>
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">Algo más</Link>
+                  <Link className="nav-link text-white">Imagenología</Link>
+                </li>
+                <li className="list-group-item border-0 bg-transparent">
+                  <Link className="nav-link text-white">Cirugias</Link>
+                </li>
+                <li className="list-group-item border-0 bg-transparent">
+                  <Link className="nav-link text-white">Microchip</Link>
+                </li>
+                <li className="list-group-item border-0 bg-transparent">
+                  <Link className="nav-link text-white">Guardia</Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="ms-3 text-white">Información</h3>
+              <h3 className="text-white">Información</h3>
               <ul className="list-group">
                 <li className="list-group-item border-0 bg-transparent">
                   <Link className="nav-link text-white">
@@ -83,7 +90,7 @@ const FooterC = () => {
             md={4}
             lg={4}
             xl={5}
-            className="mb-4 p-0 d-flex align-items-center justify-content-center gap-3"
+            className="p-0 d-flex align-items-center justify-content-center gap-3"
           >
             <div className="map--container__footer">
               <iframe
@@ -119,27 +126,27 @@ const FooterC = () => {
           <Col lg={12} className="border-top border-3 py-3 bg-offwhite">
             <Container fluid className="mx-lg-0 d-flex flex-wrap">
               <div className="bottom--info__footer">
-                <p className="fs-5 m-0 ms-sm-2 text-center text-sm-start">
+                <p className="m-0 ms-sm-2 text-center text-sm-start">
                   Todos los derechos reservados
                 </p>
-                <p className="fs-5 m-0 ms-sm-2 text-center text-sm-start">
+                <p className="m-0 ms-sm-2 text-center text-sm-start">
                   @Comunidad-RollingPuppies
                 </p>
               </div>
               <div className="flex-grow-1 d-flex align-items-center gap-3 justify-content-sm-end justify-content-center">
-                <p className="fs-2 fw-bold m-0">Seguinos</p>
+                <p className="fs-4 fw-bold m-0">Seguinos</p>
                 <div className="social d-flex justify-content-start gap-3 ">
                   <Link to="https://facebook.com" className="nav-link">
-                    <i className="bi bi-facebook fs-2"></i>
+                    <i className="bi bi-facebook fs-5"></i>
                   </Link>
                   <Link to="https://x.com" className="nav-link">
-                    <i className="bi bi-twitter-x fs-2"></i>
+                    <i className="bi bi-twitter-x fs-5"></i>
                   </Link>
                   <Link to="https://instagram.com" className="nav-link">
-                    <i className="bi bi-instagram fs-2"></i>
+                    <i className="bi bi-instagram fs-5"></i>
                   </Link>
                   <Link to="https://youtube.com" className="nav-link">
-                    <i className="bi bi-youtube fs-2"></i>
+                    <i className="bi bi-youtube fs-5"></i>
                   </Link>
                 </div>
               </div>
@@ -149,10 +156,14 @@ const FooterC = () => {
       </Container>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton closeVariant="white" className="bg-color-principal text-white">
+        <Modal.Header
+          closeButton
+          closeVariant="white"
+          className="bgColorPrincipal text-white"
+        >
           <Modal.Title>Editar/Agregar Turno</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="bg-color-fondo">
+        <Modal.Body className="bgColorFondo">
           <Form>
             <Container>
               <Row className="align-items-center">
