@@ -119,16 +119,6 @@ function ModalRegistrarse({ show, handleClose }) {
               <Form.Label htmlFor="apellidoRegistro" className="fw-bolder">
                 Apellido
               </Form.Label>
-                name="Nombre"
-                required
-                className={styleGeneral.bgInput}
-                onChange={handleChange}
-              />
-              {errores.nombre && <div className="text-danger">Campo nombre vacío</div>}
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="apellidoRegistro" className="fw-bolder">Apellido</Form.Label>
               <Form.Control
                 type="text"
                 id="apellidoRegistro"
@@ -256,8 +246,6 @@ function ModalRegistrarse({ show, handleClose }) {
                 handleClose();
                 reset();
               }}
-
-
             >
               Cancelar
             </Button>
