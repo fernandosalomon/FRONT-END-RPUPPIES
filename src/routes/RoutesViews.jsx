@@ -10,6 +10,7 @@ import { usePageTitle } from "../helpers/usePageTitle";
 import FooterC from "../components/FooterC";
 import MisMascotasPage from "../pages/MisMascotasPage";
 import NuestrosPlanesPage from "../pages/NuestrosPlanesPage";
+import DesarrolladoresPage from "../pages/DesarrolladoresPage";
 
 const RoutesViews = () => {
   const location = useLocation();
@@ -21,6 +22,7 @@ const RoutesViews = () => {
         <Route path="/administrador/pets" element={<AdministradorPets />} />
         <Route path="/administrador/services" element={<AdministradorServices />} />
         <Route path="/administrador/turnos" element={<AdministradorTurnos />} />
+        <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
         <Route path="/mismascotas" element={<MisMascotasPage />} />
         <Route path="/administrador" element={<AdministradorPage />} />
         <Route path="/nuestrosplanes" element={<NuestrosPlanesPage />} />
