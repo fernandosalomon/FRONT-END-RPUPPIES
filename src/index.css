@@ -27,10 +27,11 @@ body {
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
+
 }
 
 #root {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .main-container {
