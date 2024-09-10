@@ -10,7 +10,7 @@ import { usePageTitle } from "../helpers/usePageTitle";
 import FooterC from "../components/FooterC";
 import MisMascotasPage from "../pages/MisMascotasPage";
 import NuestrosPlanesPage from "../pages/NuestrosPlanesPage";
-import AdministradorUsuarios from "../pages/AdministradorUsuarios";
+import DesarrolladoresPage from "../pages/DesarrolladoresPage";
 
 const RoutesViews = () => {
   const location = useLocation();
@@ -20,22 +20,16 @@ const RoutesViews = () => {
       <NavbarC />
       <Routes>
         <Route path="/administrador/pets" element={<AdministradorPets />} />
-        <Route
-          path="/administrador/services"
-          element={<AdministradorServices />}
-        />
+        <Route path="/administrador/services" element={<AdministradorServices />} />
         <Route path="/administrador/turnos" element={<AdministradorTurnos />} />
-        <Route
-          path="/administrador/usuarios"
-          element={<AdministradorUsuarios />}
-        />
+        <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
         <Route path="/mismascotas" element={<MisMascotasPage />} />
         <Route path="/administrador" element={<AdministradorPage />} />
         <Route path="/nuestrosplanes" element={<NuestrosPlanesPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Error404Page />} />
       </Routes>
-      {location.pathname !== "/" && <FooterC />}
+      <FooterC />
     </>
   );
 };

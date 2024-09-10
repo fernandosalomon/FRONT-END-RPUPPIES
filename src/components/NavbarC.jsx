@@ -27,25 +27,18 @@ const NavbarC = () => {
   const handleCloseModalEditarPerfil = () => setShowModalEditarPerfil(false);
 
   //###################### PARA PROBAR - ELIMINAR CUANDO AGREGUEMOS TODA LA LOGICA ##########################
-  // useEffect(() => {
-  //   setUserRole("user");
-  //   setUserLogged(false);
-  // }, []);
+  useEffect(() => {
+    setUserRole("user");
+    setUserLogged(false);
+  }, []);
   //##########################################################################################################
-  useEffect(()=>{
 
-  }, [showModalIniciarSesion])
   return (
     <>
-      <Navbar
-        expand="lg"
-        className="sticky-top bgColorPrincipal text-poppins p-0"
-      >
+      <Navbar expand="lg" className="sticky-top bgColorPrincipal text-poppins p-0">
         <Container fluid>
-          <Navbar.Brand className="me-5">
-            <Link to="/">
-              <Image src={imgLogo} width={130} />
-            </Link>
+          <Navbar.Brand className="me-5" href="#home">
+            <Image src={imgLogo} width={130} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -68,6 +61,9 @@ const NavbarC = () => {
                   </Link>
                   <Link to="#" className="nav-link fw-medium text-white">
                     Servicios
+                  </Link>
+                  <Link to="#" className="nav-link fw-medium text-white">
+                    Planes
                   </Link>
                   <Link to="#" className="nav-link fw-medium text-white">
                     Contacto
@@ -96,36 +92,12 @@ const NavbarC = () => {
               ) : (
                 <>
                   <div className="d-flex gap-2">
-                    <button
-                      className="btn-1"
-                      onClick={handleOpenModalIniciarSesion}
-                    >
-                      Iniciar Sesión
-                    </button>
-                    <ModalIniciarSesion
-                      show={showModalIniciarSesion}
-                      handleClose={handleCloseModalIniciarSesion}
-                    />
-                    <button
-                      className="btn-1"
-                      onClick={handleOpenModalRegistrarse}
-                    >
-                      Registrarse
-                    </button>
-                    <ModalRegistrarse
-                      show={showModalRegistrarse}
-                      handleClose={handleCloseModalRegistrarse}
-                    />
-                    <button
-                      className="btn-1"
-                      onClick={handleOpenModalEditarPerfil}
-                    >
-                      Editar Perfil
-                    </button>
-                    <ModalEditarPerfil
-                      show={showModalEditarPerfil}
-                      handleClose={handleCloseModalEditarPerfil}
-                    />
+                    <button className="btn-1" onClick={handleOpenModalIniciarSesion}>Iniciar Sesión</button>
+                    <ModalIniciarSesion show={showModalIniciarSesion} handleClose={handleCloseModalIniciarSesion}/>
+                    <button className="btn-1" onClick={handleOpenModalRegistrarse}>Registrarse</button>
+                    <ModalRegistrarse show={showModalRegistrarse} handleClose={handleCloseModalRegistrarse}/>
+                    <button className="btn-1" onClick={handleOpenModalEditarPerfil}>Editar Perfil</button>
+                    <ModalEditarPerfil show={showModalEditarPerfil} handleClose={handleCloseModalEditarPerfil} />
                   </div>
                 </>
               )}

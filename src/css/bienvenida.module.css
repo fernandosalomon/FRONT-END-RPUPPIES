@@ -12,7 +12,7 @@
 }
 
 .bienvenidad .cardDescripcion{
-    width: 700px;
+    width: 850px;
     margin: 20px 10px;
     padding: 20px;
     border-radius: 15px;
@@ -24,7 +24,7 @@
 }
 
 .cardDescripcion .descripcion{
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     text-align: center;
 }
 
