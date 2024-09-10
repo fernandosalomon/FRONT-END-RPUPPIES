@@ -11,26 +11,28 @@ import FooterC from "../components/FooterC";
 import MisMascotasPage from "../pages/MisMascotasPage";
 import NuestrosPlanesPage from "../pages/NuestrosPlanesPage";
 import AdministradorUsuarios from "../pages/AdministradorUsuarios";
+import AdminRoutes from "./PrivateRoutes/AdminRoutes";
+import { useState } from "react";
+import LoggedRoutes from "./PrivateRoutes/LoggedRoutes";
+
 
 const RoutesViews = () => {
   const location = useLocation();
   usePageTitle(location.pathname);
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [isLogged, setIsLogged] = useState(false)
+
   return (
     <>
       <NavbarC />
       <Routes>
-        <Route path="/administrador/pets" element={<AdministradorPets />} />
-        <Route
-          path="/administrador/services"
-          element={<AdministradorServices />}
-        />
-        <Route path="/administrador/turnos" element={<AdministradorTurnos />} />
-        <Route
-          path="/administrador/usuarios"
-          element={<AdministradorUsuarios />}
-        />
-        <Route path="/mismascotas" element={<MisMascotasPage />} />
-        <Route path="/administrador" element={<AdministradorPage />} />
+        {
+          isAdmin ? <Route path="/administrador/*" element={<AdminRoutes />}/> : <Route path="/error" element={<Error404Page />} />
+        }
+        {
+          isLogged ? <Route path="/*" element={<LoggedRoutes />} /> : <Route path="/error" element={<Error404Page />} />
+        }
+        
         <Route path="/nuestrosplanes" element={<NuestrosPlanesPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Error404Page />} />

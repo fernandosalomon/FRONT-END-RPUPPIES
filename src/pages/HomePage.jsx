@@ -9,7 +9,7 @@ import PubliPeluqueria from "../components/PubliPeluqueria";
 
 const HomePage = () => {
   return (
-    <main className="flex-grow-1">
+    <main className="flex-grow-1 main-container">
       <BannerC />
       <Bienvenidad />
       <NuestrasMarcas />

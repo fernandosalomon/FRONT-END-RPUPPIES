@@ -63,12 +63,12 @@ const NavbarC = () => {
     <>
       <Navbar
         expand="lg"
-        className="sticky-top bgColorPrincipal text-poppins p-0"
+        className="bgColorPrincipal text-poppins p-0"
       >
         <Container fluid className="p-0">
           <Navbar.Brand>
-            <Link to="/" className="me-5">
-              <Image src={imgLogo} width={130} />
+            <Link to="/" className="ms-2">
+              <Image src={imgLogo} width={100} />
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -79,10 +79,10 @@ const NavbarC = () => {
             {userRole === "admin" ? (
               <>
                 <Nav className="me-auto d-flex gap-4">
-                  <Link className="nav-link fw-medium text-white" href="#home">
+                  <Link className="nav-link fw-medium text-white" to="/administrador/usuarios">
                     Usuarios
                   </Link>
-                  <Link className="nav-link fw-medium text-white" href="#link">
+                  <Link className="nav-link fw-medium text-white" to="/administrador/turnos">
                     Administrar Turnos
                   </Link>
                 </Nav>
