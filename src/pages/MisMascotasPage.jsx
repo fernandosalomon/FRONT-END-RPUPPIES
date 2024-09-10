@@ -65,7 +65,7 @@ const MisMascotasPage = () => {
   return (
     <main className="flex-grow-1">
       <PubliPeluqueria />
-      {/* <MisMascotas /> */}
+      {/* <MisMascotas mascotas={mascotas} /> */}
     </main>
   );
 };
