@@ -1,134 +1,124 @@
-import styleGeneral from '../../src/index.module.css';
-import { Modal, Button, Form } from 'react-bootstrap';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import styleGeneral from "../../src/index.module.css";
+import { Modal, Button, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function ModalRegistrarse({ show, handleClose }) {
-
   const navigate = useNavigate();
-  const [formRegister, setFormRegister] = useState({});
-  const [errores, setErrores] = useState({});
+  const client = axios.create({
+    baseURL: "http://localhost:3001/api/usuarios",
+  });
 
-  const handleChange = (ev) => {
-    setFormRegister({ ...formRegister, [ev.target.name.toLowerCase()]: ev.target.value });
-  };
+  const registerSchema = z.object({
+    nombre: z
+      .string()
+      .min(1, { message: "Campo Requerido" })
+      .max(25, "Máximo permitido: 25 caracteres"),
+    apellido: z
+      .string()
+      .min(1, { message: "Campo Requerido" })
+      .max(25, "Máximo permitido: 25 caracteres"),
+    email: z
+      .string()
+      .email({ message: "Formato de email incorrecto" })
+      .min(1, { message: "Campo Requerido" }),
+    telefono: z
+      .string()
+      .min(7, { message: "Mínimo requerido: 7 dígitos" })
+      .max(10, { message: "Máximo permitido: 10 dígitos" }),
+    contrasenia: z
+      .string()
+      .min(8, { message: "La contraseña debe contener al menos 8 caracteres" })
+      .max(25, { message: "Máximo permitido: 25 caracteres" }),
+    repetirContrasenia: z.string(),
+  });
 
-  const validarEmail = (email) => {
-    const emailRequerido = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    return emailRequerido.test(email);
-  };
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(registerSchema),
+  });
 
-  const validarContraseña = (password) => {
-    const contraseñaRequerida = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    return contraseñaRequerida.test(password);
-  };
+  const onSubmit = async (e) => {
+    if (e.contrasenia === e.repetirContrasenia) {
+      try {
+        const { repetirContrasenia, ...userData } = e;
+        const response = await client.post("/", userData);
 
-  const handleClick = (ev) => {
-    ev.preventDefault();
-
-    let hasErrors = false;
-
-    if (!formRegister.nombre) {
-      setErrores((prev) => ({ ...prev, nombre: true }));
-      hasErrors = true;
-    } else {
-      setErrores((prev) => ({ ...prev, nombre: false }));
+        Swal.fire({
+          title: "Usuario creado con exito",
+          text: "Te hemos enviado un mail de bienvenida",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        sessionStorage.setItem("userToken", response.data.token);
+        sessionStorage.setItem("userRole", response.data.rol);
+        handleClose();
+        setTimeout(() => {
+          navigate(0);
+        }, 1000);
+      } catch (error) {
+        setError("root", {
+          message: error.response.data.mensaje,
+        });
+      }
     }
-
-    if (!formRegister.apellido) {
-      setErrores((prev) => ({ ...prev, apellido: true }));
-      hasErrors = true;
-    } else {
-      setErrores((prev) => ({ ...prev, apellido: false }));
-    }
-
-    if (!formRegister.email) {
-      setErrores((prev) => ({ ...prev, email: true }));
-      hasErrors = true;
-    } else {
-      setErrores((prev) => ({ ...prev, email: false }));
-    }
-
-    if (!formRegister.telefono) {
-      setErrores((prev) => ({ ...prev, telefono: true }));
-      hasErrors = true;
-    } else {
-      setErrores((prev) => ({ ...prev, telefono: false }));
-    }
-
-    if (!formRegister.contraseña) {
-      setErrores((prev) => ({ ...prev, contraseña: true }));
-      hasErrors = true;
-    } else {
-      setErrores((prev) => ({ ...prev, contraseña: false }));
-    }
-
-    if (!formRegister.rcontraseña) {
-      setErrores((prev) => ({ ...prev, rcontraseña: true }));
-      hasErrors = true;
-    } else {
-      setErrores((prev) => ({ ...prev, rcontraseña: false }));
-    }
-
-    if (hasErrors) return;
-
-    if (!validarEmail(formRegister.email)) {
-      return alert("Email inválido");
-    }
-
-    if (!validarContraseña(formRegister.contraseña)) {
-      return alert("La contraseña debe tener al menos 8 caracteres, una mayúscula y un número");
-    }
-
-    if (formRegister.contraseña !== formRegister.rcontraseña) {
-      return alert("Las contraseñas no coinciden");
-    }
-
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const usuarioExistente = usuarios.find((usuario) => usuario.nombreUsuario === formRegister.email);
-
-    if (usuarioExistente) {
-      return alert("El usuario ya existe");
-    }
-
-    const nuevoUsuario = {
-      id: usuarios[usuarios.length - 1]?.id + 1 || 1,
-      nombre: formRegister.nombre,
-      apellido: formRegister.apellido,
-      email: formRegister.email,
-      telefono: formRegister.telefono,
-      contrasenia: formRegister.contraseña,
-      role: "usuario",
-      bloqueado: false,
-      login: false,
-    };
-
-    usuarios.push(nuevoUsuario);
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-    handleClose();
-    setTimeout(() => {
-      
-      navigate("/iniciar-sesion");
-    }, 1000);
-
   };
 
   return (
-    <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header closeButton closeVariant="white" className={styleGeneral.bgColorPrincipal}>
+    <Modal
+      show={show}
+      onHide={() => {
+        handleClose();
+        reset();
+      }}
+      centered
+    >
+      <Modal.Header
+        closeButton
+        closeVariant="white"
+        className="bgColorPrincipal"
+      >
         <Modal.Title className="text-white">Registrarse</Modal.Title>
       </Modal.Header>
       <Modal.Body className={styleGeneral.bgColorFondo}>
-        <Form id="form-registro" onSubmit={handleClick}>
-          <div className="d-flex gap-2">
+        <Form id="form-registro" onSubmit={handleSubmit(onSubmit)}>
+          <div className="d-flex gap-3">
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="nombreRegistro" className="fw-bolder">Nombre</Form.Label>
+              <Form.Label htmlFor="nombreRegistro" className="fw-bolder">
+                Nombre
+              </Form.Label>
               <Form.Control
                 type="text"
                 id="nombreRegistro"
                 placeholder="Ingrese su nombre"
                 minLength="3"
                 maxLength="25"
+                name="nombre"
+                required
+                className="bgInput"
+                {...register("nombre")}
+              />
+              {errors.nombre && (
+                <div className="text-danger fw-bold">
+                  {errors.nombre.message}
+                </div>
+              )}
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="apellidoRegistro" className="fw-bolder">
+                Apellido
+              </Form.Label>
                 name="Nombre"
                 required
                 className={styleGeneral.bgInput}
@@ -143,102 +133,131 @@ function ModalRegistrarse({ show, handleClose }) {
                 type="text"
                 id="apellidoRegistro"
                 placeholder="Ingrese su apellido"
-                minLength="3"
                 maxLength="25"
-                name="Apellido"
+                name="apellido"
                 required
-                className={styleGeneral.bgInput}
-                onChange={handleChange}
+                className="bgInput"
+                {...register("apellido")}
               />
-              {errores.apellido && <div className="text-danger">Campo apellido vacío</div>}
+              {errors.apellido && (
+                <div className="text-danger fw-bold">
+                  {errors.apellido.message}
+                </div>
+              )}
             </Form.Group>
           </div>
-
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="emailRegistro" className="fw-bolder">Email</Form.Label>
+            <Form.Label htmlFor="emailRegistro" className="fw-bolder">
+              Email
+            </Form.Label>
             <Form.Control
               type="email"
               id="emailRegistro"
               placeholder="Ingrese su email"
-              minLength="8"
-              maxLength="30"
-              name="Email"
-              autoComplete="username"
+              maxLength="20"
+              name="email"
               required
-              className={styleGeneral.bgInput}
-              onChange={handleChange}
+              className="bgInput"
+              {...register("email")}
             />
-            {errores.email && <div className="text-danger">Campo email vacío</div>}
+            {errors.email && (
+              <div className="text-danger fw-bold">{errors.email.message}</div>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="telefonoRegistro" className="fw-bolder">Teléfono</Form.Label>
+            <Form.Label htmlFor="telefonoRegistro" className="fw-bolder">
+              Teléfono
+            </Form.Label>
             <Form.Control
               type="tel"
               id="telefonoRegistro"
-              placeholder="Ingrese su teléfono"
+              placeholder="Ingresa tu teléfono"
               maxLength="10"
-              pattern="\d{10}"
-              name="Telefono"
+              name="Teléfono"
               required
-              className={styleGeneral.bgInput}
-              onChange={handleChange}
+              className="bgInput"
+              {...register("telefono")}
             />
-            {errores.telefono && <div className="text-danger">Campo teléfono vacío</div>}
+            {errors.telefono && (
+              <div className="text-danger fw-bold">
+                {errors.telefono.message}
+              </div>
+            )}
           </Form.Group>
 
-          <div className="d-flex gap-2">
+          <div className="d-flex gap-3">
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="passwordRegistro" className="fw-bolder">Contraseña</Form.Label>
+              <Form.Label htmlFor="passwordRegistro" className="fw-bolder">
+                Contraseña
+              </Form.Label>
               <Form.Control
                 type="password"
                 id="passwordRegistro"
                 placeholder="Ingrese su contraseña"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Debe contener al menos un número, una letra mayúscula, una minúscula, y al menos 8 caracteres"
                 maxLength="20"
                 minLength="8"
-                autoComplete="new-password"
-                name="Contraseña"
+                name="contrasenia"
                 required
-                className={styleGeneral.bgInput}
-                onChange={handleChange}
+                className="bgInput"
+                {...register("contrasenia")}
               />
-              {errores.contraseña && <div className="text-danger">Campo contraseña vacío</div>}
+              {errors.contrasenia && (
+                <div className="text-danger fw-bold">
+                  {errors.contrasenia.message}
+                </div>
+              )}
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="passwordRegistroRepetir" className="fw-bolder">Repetir contraseña</Form.Label>
+              <Form.Label
+                htmlFor="passwordRegistroRepetir"
+                className="fw-bolder"
+              >
+                Repetir contraseña
+              </Form.Label>
               <Form.Control
                 type="password"
                 id="passwordRegistroRepetir"
                 placeholder="Repita su contraseña"
                 maxLength="20"
                 minLength="8"
-                autoComplete="new-password"
-                name="Rcontraseña"
+                name="repetirContrasenia"
                 required
-                className={styleGeneral.bgInput}
-                onChange={handleChange}
+                className="bgInput"
+                {...register("repetirContrasenia")}
               />
-              {errores.rcontraseña && <div className="text-danger">Campo repetir contraseña vacío</div>}
+              {errors.repetirContrasenia && (
+                <div className="text-danger fw-bold">
+                  {errors.repetirContrasenia.message}
+                </div>
+              )}
             </Form.Group>
           </div>
+          {errors.root && (
+            <div className="text-danger fw-bold">{errors.root.message}</div>
+          )}
 
-          <div className="d-flex align-items-center justify-content-center">
+          <div className="d-flex align-items-center justify-content-center mt-3">
             <Button
               type="submit"
               id="botonRegistrarse"
-              className={`${styleGeneral.btnPersonalized2} mx-1 fw-bold`}
+              className="btnPersonalized2 mx-1 fw-bold"
               aria-label="Registrarse"
+              disabled={isSubmitting}
             >
-              Registrarse
+              {isSubmitting ? "Registrando..." : "Registrarse"}
             </Button>
             <Button
               type="reset"
-              className={`${styleGeneral.btnPersonalized1} mx-1 fw-bold`}
+              className="styleGeneral.btnPersonalized1 mx-1 fw-bold"
               aria-label="Cancelar"
-              onClick={handleClose}
+              onClick={() => {
+                handleClose();
+                reset();
+              }}
+
+
             >
               Cancelar
             </Button>
@@ -247,7 +266,6 @@ function ModalRegistrarse({ show, handleClose }) {
       </Modal.Body>
     </Modal>
   );
-    
 }
 
 export default ModalRegistrarse;

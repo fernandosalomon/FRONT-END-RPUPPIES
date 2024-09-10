@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
 import TableC from "../components/TableC";
-import axios from "axios";
+import { Container } from "react-bootstrap";
 
 const AdministradorUsuarios = () => {
   return (
     <>
-      <TableC tableID={"usuarios"} />
+      <Container className="m-auto">
+        <TableC tableID={"users"} rowsPerPage={4} />
+      </Container>
     </>
   );
 };

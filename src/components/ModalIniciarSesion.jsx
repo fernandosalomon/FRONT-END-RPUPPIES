@@ -1,142 +1,144 @@
-import { useState } from 'react';
-import styleGeneral from '../../src/index.module.css';
-import { Modal, Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { Modal, Button, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
-const ModalIniciarSesion = ({ show, handleClose }) => {
-    const [formLogin, setFormLogin] = useState({ email: '', contrasenia: '' });
-    const [errores, setErrores] = useState({});
-    const navigate = useNavigate();
+function ModalIniciarSesion({ show, handleClose }) {
+  const navigate = useNavigate();
+  const client = axios.create({
+    baseURL: "http://localhost:3001/api/usuarios",
+  });
 
-    const handleChange = (ev) => {
-        const { name, value } = ev.target;
-        setFormLogin((prev) => ({ ...prev, [name]: value }));
-    };
+  const loginSchema = z.object({
+    email: z
+      .string()
+      .email({ message: "Formato de email invalido" })
+      .min(1, { message: "Campo requerido" }),
+    contrasenia: z.string().min(1, { message: "Campo requerido" }),
+  });
 
-    const handleClickLogin = (ev) => {
-        ev.preventDefault();
-        let hasErrors = false;
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
 
-        if (!formLogin.email) {
-            setErrores((prev) => ({ ...prev, email: true }));
-            hasErrors = true;
-        } else {
-            setErrores((prev) => ({ ...prev, email: false }));
-        }
+  const onSubmit = async (e) => {
+    try {
+      const response = await client.post("/login", e);
+      if (response.data.token) {
+        Swal.fire({
+          title: "Bienvenido",
+          text: `${response.data.mensaje}`,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        sessionStorage.setItem("userToken", response.data.token);
+        sessionStorage.setItem("userRole", response.data.rol);
+        handleClose();
+        navigate(0);
+      } else {
+        Swal.fire({
+          title: "Algo salio mal",
+          text: `${response.data}`,
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-        if (!formLogin.contrasenia) {
-            setErrores((prev) => ({ ...prev, contrasenia: true }));
-            hasErrors = true;
-        } else {
-            setErrores((prev) => ({ ...prev, contrasenia: false }));
-        }
+  return (
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header
+        closeButton
+        closeVariant="white"
+        className="bgColorPrincipal"
+      >
+        <Modal.Title className="text-white">Iniciar Sesión</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="bgColorFondo">
+        <Form id="form-iniciar-sesion" onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="email-iniciar-sesion" className="fw-bolder">
+              Email
+            </Form.Label>
+            <Form.Control
+              type="email"
+              id="email-iniciar-sesion"
+              placeholder="Ingrese su email"
+              minLength="5"
+              maxLength="254"
+              name="email"
+              required
+              className="bgInput"
+              aria-describedby="emailHelp"
+              {...register("email")}
+            />
+            {errors.email && (
+              <div className="text-danger">{errors.email.message}</div>
+            )}
+          </Form.Group>
 
-        if (hasErrors) {
-            return;
-        }
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="password-iniciar-sesion" className="fw-bolder">
+              Contraseña
+            </Form.Label>
+            <Form.Control
+              type="password"
+              id="password-iniciar-sesion"
+              placeholder="Ingrese su contraseña"
+              minLength="6"
+              maxLength="16"
+              name="contrasenia"
+              required
+              className="bgInput"
+              {...register("contrasenia")}
+            />
+            {errors.contrasenia && (
+              <div className="text-danger">{errors.contrasenia.message}</div>
+            )}
+          </Form.Group>
 
-        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-        const usuarioExiste = usuarios.find((usuario) => usuario.email === formLogin.email);
-      
-        if (!usuarioExiste) {
-            return alert("Usuario y/o contraseña incorrecta.");
-        }
+          <Link
+            to="/reset-password"
+            className="link-dark link-offset-2 link-underline link-underline-opacity-0"
+          >
+            Olvidé mi contraseña
+          </Link>
 
-        if (usuarioExiste.contrasenia === formLogin.contrasenia) {
-            usuarioExiste.login = true;
-            localStorage.setItem("usuarios", JSON.stringify(usuarios));
-            sessionStorage.setItem("usuario", JSON.stringify(usuarioExiste));
+          <div className="d-flex align-items-center justify-content-center mt-3">
+            <Button
+              type="submit"
+              className="btnPersonalized2 mx-1 fw-bold"
+              aria-label="Ingresar"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Ingresando" : "Ingresar"}
+            </Button>
+            <Button
+              type="reset"
+              className="btnPersonalized1 mx-1 fw-bold"
+              aria-label="Cancelar"
+              onClick={handleClose}
+            >
+              Cancelar
+            </Button>
+          </div>
+        </Form>
+      </Modal.Body>
+    </Modal>
+  );
+}
 
-            if (usuarioExiste.role === "admin") {
-            
-                setTimeout(() => {
-                    navigate("/admin-inicio");
-                }, 1000);
-            } else {
-                setTimeout(() => {
-                    navigate("/usuario-inicio");
-                }, 1000);
-            }
-        } else {
-            return alert("Usuario y/o contraseña incorrecta.");
-        }
-    };
-
-    return (
-        <Modal show={show} onHide={handleClose} centered>
-            <Modal.Header closeButton closeVariant="white" className={styleGeneral.bgColorPrincipal}>
-                <Modal.Title className="text-white">Iniciar Sesión</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className={styleGeneral.bgColorFondo}>
-                <Form id="form-iniciar-sesion" onSubmit={handleClickLogin}>
-                    <Form.Group className="mb-3">
-                        <Form.Label htmlFor="email-iniciar-sesion" className="fw-bolder">
-                            Email
-                        </Form.Label>
-                        <Form.Control
-                            type="email"
-                            id="email-iniciar-sesion"
-                            placeholder="Ingrese su email"
-                            minLength="5"
-                            maxLength="30"
-                            name="email"
-                            required
-                            autoComplete="username"
-                            className={styleGeneral.bgInput}
-                            onChange={handleChange}
-                            aria-describedby="emailHelp"
-                        />
-                        <div id="emailErrorIniciarSesion"></div>
-                        {errores.email && <div className="text-danger">Campo email vacío</div>}
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label htmlFor="password-iniciar-sesion" className="fw-bolder">
-                            Contraseña
-                        </Form.Label>
-                        <Form.Control
-                            type="password"
-                            id="password-iniciar-sesion"
-                            placeholder="Ingrese su contraseña"
-                            name="contrasenia"
-                            required
-                            title="Debe contener al menos un número, una letra mayúscula, una letra minúscula, y tener entre 8 y 16 caracteres"
-                            autoComplete="current-password"
-                            className={styleGeneral.bgInput}
-                            onChange={handleChange}
-                        />
-                        <div id="passwordErrorIniciarSesion">
-                            {errores.contrasenia && <p className="text-danger">Campo contraseña vacío</p>}
-                        </div>
-                    </Form.Group>
-
-                    <Form.Text className="mb-3">
-                        <a href="#" className="link-dark link-offset-2 link-underline link-underline-opacity-0">
-                            Olvidé mi contraseña
-                        </a>
-                    </Form.Text>
-
-                    <div className="d-flex align-items-center justify-content-center">
-                        <Button
-                            type="submit"
-                            className={`${styleGeneral.btnPersonalized2} mx-1 fw-bold`}
-                            aria-label="Ingresar"
-                        >
-                            Ingresar
-                        </Button>
-                        <Button
-                            type="reset"
-                            className={`${styleGeneral.btnPersonalized1} mx-1 fw-bold`}
-                            aria-label="Cancelar"
-                            onClick={handleClose}
-                        >
-                            Cancelar
-                        </Button>
-                    </div>
-                </Form>
-            </Modal.Body>
-        </Modal>
-    );
-};
 
 export default ModalIniciarSesion;
