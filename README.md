@@ -19,15 +19,13 @@ Tanto el sitio como el servidor se deben ejecutar con el paquete npm de NodeJS. 
 
 La página se encuentra subida al servidor de Netlify:
 
-https://...
+[https://...](https://front-end-rpuppies.vercel.app/)
 
 ## Contribución o duda
 
 Por cualquier duda o contribución contactar con los administradores de la página:
 
 - Maximiliano Soriano
-
-- Contreras Lisandro
 
 - Gonzalo Mainardi
 
