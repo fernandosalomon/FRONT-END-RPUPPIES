@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import BannerAdminView from "../components/BannerAdminView";
-import TableC from "../components/TableC";
+import React from 'react'
+import BannerAdminView from '../components/BannerAdminView'
 
 const AdministradorPage = () => {
  

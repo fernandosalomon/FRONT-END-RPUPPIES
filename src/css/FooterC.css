@@ -8,15 +8,7 @@
 }
 
 .list-group-item {
-  font-size: 1rem;
-  line-height: 1.7rem;
-  padding: 0 !important;
-}
-
-.list-group-item:hover {
-  text-decoration: underline;
-  text-decoration-color: white;
-  text-decoration-thickness: 1px;
+  font-size: 1.2rem;
 }
 
 .bg-offwhite {
