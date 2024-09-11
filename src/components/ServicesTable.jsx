@@ -7,7 +7,7 @@ import 'datatables.net-dt/css/dataTables.dataTables.min.css';
 import '../index.css';
 
 const ServicesTable = ({ services }) => {
-    const [servicesState, setServicesState] = useState(services); // Inicializa el estado con los servicios pasados como prop
+    const [servicesState, setServicesState] = useState(services); 
     const tablaservicios = useRef();
 
     const cambiarPropiedad = (id, propiedad, valor) => {
