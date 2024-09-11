@@ -40,10 +40,6 @@ const RoutesViews = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(isAdmin);
-  }, [isAdmin]);
-
   return (
     <>
       <NavbarC
@@ -53,10 +49,10 @@ const RoutesViews = () => {
       />
       <Routes>
         <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
-        {isAdmin ? (
+        {userRol === "admin" ? (
           <Route path="/administrador/*" element={<AdminRoutes />} />
         ) : (
-          <Route path="/error" element={<Error404Page />} />
+          <Route path="/error404" element={<Error404Page />} />
         )}
         {isLogged ? (
           <Route path="/*" element={<LoggedRoutes />} />
