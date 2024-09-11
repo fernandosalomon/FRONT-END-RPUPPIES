@@ -1,12 +1,14 @@
 import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { usePageTitle } from "../helpers/usePageTitle";
 import HomePage from "../pages/HomePage";
 import Error404Page from "../pages/Error404Page";
 import NavbarC from "../components/NavbarC";
-import { usePageTitle } from "../helpers/usePageTitle";
 import FooterC from "../components/FooterC";
 import DesarrolladoresPage from "../pages/DesarrolladoresPage";
 import NuestrosPlanesPage from "../pages/NuestrosPlanesPage";
-import { useEffect, useState } from "react";
+import LoggedRoutes from "./PrivateRoutes/LoggedRoutes";
+import AdminRoutes from "./PrivateRoutes/AdminRoutes";
 
 const RoutesViews = () => {
   const location = useLocation();
@@ -14,16 +16,22 @@ const RoutesViews = () => {
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
+  const [userRol, setUserRol] = useState("");
 
   useEffect(() => {
-    const userRol = sessionStorage.getItem("userRole");
-    userRol && setIsLogged(true);
-    userRol === "admin" && setIsAdmin(true);
+    if (sessionStorage.getItem("userRole")) {
+      setUserRol(sessionStorage.getItem("userRole"));
+      userRol === "admin" && setIsAdmin(true);
+    }
+    const userToken = sessionStorage.getItem("userToken") || null;
+    if (userToken) {
+      setIsLogged(true);
+    }
   }, []);
 
   return (
     <>
-      <NavbarC />
+      <NavbarC isLogged={isLogged} isAdmin={isAdmin} />
       <Routes>
         <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
         {isAdmin ? (
@@ -37,7 +45,7 @@ const RoutesViews = () => {
           <Route path="/error" element={<Error404Page />} />
         )}
 
-        <Route path="/nuestrosplanes" element={<NuestrosPlanesPage />} />
+        <Route path="/nuestros-planes" element={<NuestrosPlanesPage />} />
 
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Error404Page />} />
