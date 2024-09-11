@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import clienteAxios from "../helpers/clientAxios";
+import clientAxios from "../helpers/clientAxios";
 import Swal from "sweetalert2";
 import styleGeneral from "../../src/index.module.css";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -82,7 +82,7 @@ function ModalEditarMascota({ show, handleClose, mascota }) {
 
   const onSubmit = async (e) => {
     try {
-      const response = await clienteAxios.put(
+      const response = await clientAxios.put(
         `/mascotas/${mascotaDatos._id}`,
         e,
         {

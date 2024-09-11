@@ -1,7 +1,7 @@
 import TableTurnos from "../components/TableTurnos";
 import BannerAdminView from "../components/BannerAdminView";
 import React, { useState, useEffect } from "react";
-import clienteAxios from "../helpers/clientAxios";
+import clientAxios from "../helpers/clientAxios";
 
 const AdministradorTurnos = () => {
   const [turnos, setTurnos] = useState([]);
@@ -10,8 +10,8 @@ const AdministradorTurnos = () => {
 
   const traerTurnos = async () => {
     try {
-      const turnosResponse = await clienteAxios.get("/turnos");
-      const mascotasResponse = await clienteAxios.get(`/mascotas/all/`);
+      const turnosResponse = await clientAxios.get("/turnos");
+      const mascotasResponse = await clientAxios.get(`/mascotas/all/`);
 
       const turnosData = turnosResponse.data;
       const mascotasData = mascotasResponse.data;

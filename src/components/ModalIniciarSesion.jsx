@@ -3,7 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import clienteAxios from "../helpers/clientAxios";
+import clientAxios from "../helpers/clientAxios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -31,7 +31,7 @@ function ModalIniciarSesion({ show, handleClose, handleLogIn }) {
 
   const onSubmit = async (e) => {
     try {
-      const response = await clienteAxios.post("usuarios/login", e);
+      const response = await clientAxios.post("usuarios/login", e);
       console.log(response);
       if (response.data.token) {
         Swal.fire({

@@ -2,7 +2,7 @@ import "../css/CustomTable.css";
 import { useState, useEffect, useCallback } from "react";
 import useTable from "../hooks/useTable";
 import { Modal, Button, Accordion, Form, InputGroup } from "react-bootstrap";
-import clienteAxios from "../helpers/clientAxios";
+import clientAxios from "../helpers/clientAxios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

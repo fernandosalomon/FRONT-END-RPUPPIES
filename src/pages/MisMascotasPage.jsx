@@ -1,4 +1,4 @@
-import clienteAxios from "../helpers/clientAxios";
+import clientAxios from "../helpers/clientAxios";
 import MisMascotas from "../components/MisMascotas";
 import PubliPeluqueria from "../components/PubliPeluqueria";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ const MisMascotasPage = () => {
 
   const getMascotas = async () => {
     try {
-      const mascotasDB = await clienteAxios.get("/mascotas/", {
+      const mascotasDB = await clientAxios.get("/mascotas/", {
         headers: {
           auth: sessionStorage.getItem("userToken"),
         },

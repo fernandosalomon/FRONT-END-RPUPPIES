@@ -4,7 +4,7 @@ import "../index.css";
 import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import clienteAxios from "../helpers/clientAxios";
+import clientAxios from "../helpers/clientAxios";
 
 const BannerAdminView = ({ turnos, setTurnos }) => {
   const [usuarios, setUsuarios] = useState([]);
@@ -16,10 +16,10 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
   useEffect(() => {
     const fetchUsuariosAndMascotas = async () => {
       try {
-        const usuariosResponse = await clienteAxios.get("/usuarios");
+        const usuariosResponse = await clientAxios.get("/usuarios");
         setUsuarios(usuariosResponse.data);
 
-        const mascotasResponse = await clienteAxios.get("/mascotas/all/");
+        const mascotasResponse = await clientAxios.get("/mascotas/all/");
         setMascotas(mascotasResponse.data);
         setMascotasFiltradas(mascotasResponse.data);
       } catch (error) {
@@ -60,7 +60,7 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
   useEffect(() => {
     const obtenerUsuarios = async () => {
       try {
-        const response = await clienteAxios.get("/usuarios");
+        const response = await clientAxios.get("/usuarios");
         setUsuarios(response.data);
       } catch (error) {
         console.error("Error al obtener usuarios:", error);
@@ -105,7 +105,7 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
     e.preventDefault();
 
     try {
-      const response = await clienteAxios.post("/turnos", selectedTurno);
+      const response = await clientAxios.post("/turnos", selectedTurno);
       if (response.status === 200) {
         Swal.fire({
           title: "Turno Creado!",
