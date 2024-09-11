@@ -49,7 +49,7 @@ const RoutesViews = () => {
       />
       <Routes>
         <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
-        {userRol === "admin" ? (
+        {sessionStorage.getItem("userRole") === "admin" ? (
           <Route path="/administrador/*" element={<AdminRoutes />} />
         ) : (
           <Route path="*" element={<Error404Page />} />
