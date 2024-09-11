@@ -1,19 +1,26 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "../pages/HomePage";
-import AdministradorPage from "../pages/AdministradorPage";
 import Error404Page from "../pages/Error404Page";
-import AdministradorPets from "../pages/AdministradorPets";
 import NavbarC from "../components/NavbarC";
-import AdministradorServices from "../pages/AdministradorServices";
-import AdministradorTurnos from "../pages/AdministradorTurnos";
 import { usePageTitle } from "../helpers/usePageTitle";
 import FooterC from "../components/FooterC";
-import MisMascotasPage from "../pages/MisMascotasPage";
 import DesarrolladoresPage from "../pages/DesarrolladoresPage";
+import NuestrosPlanesPage from "../pages/NuestrosPlanesPage";
+import { useEffect, useState } from "react";
 
 const RoutesViews = () => {
   const location = useLocation();
   usePageTitle(location.pathname);
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+
+  useEffect(() => {
+    const userRol = sessionStorage.getItem("userRole");
+    userRol && setIsLogged(true);
+    userRol === "admin" && setIsAdmin(true);
+  }, []);
+
   return (
     <>
       <NavbarC />
