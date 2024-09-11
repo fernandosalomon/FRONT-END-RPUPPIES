@@ -1,0 +1,66 @@
+.accordion-button{
+  background-color: var(--color-3) !important;
+  color: white !important;
+}
+
+.accordion-button:focus{
+  box-shadow: none !important;
+}
+
+.accordion-button::before{
+  content: "\25be";
+  float: right;
+  font-size: 2rem;
+  color: white;
+ }
+
+.accordion-button::after{
+ display: none !important;
+}
+
+.nuestros-planes-page--wrapper{
+  width: 90% !important;
+}
+
+.contact-form--wrapper{
+  width: 75% !important;
+}
+
+.planes-page-title,
+.planes-page-subtitle{
+  font-family: var(--fuente-secundaria) !important;
+}
+
+.planes-page-title{
+  font-size: 2.5rem !important;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.planes-page-subtitle{
+  font-size: 1.5rem !important;
+  margin-bottom: 1.5rem;
+  line-height: 2.5rem;
+  padding: 0 0 0 0.7rem;
+}
+
+.form-check-input:focus{
+background-color: var(--color-complementario-I) !important;
+box-shadow: 0 0 0 .25rem rgba(206, 29, 73, .25) !important;
+border-color: var(--color-complementario-I) !important;
+}
+
+.form-check-input:active,
+.form-check-input:checked{
+background-color: var(--color-complementario-I) !important;
+border-color: var(--color-complementario-I) !important;
+}
+
+@media (max-width: 786px) {
+  .contact-form--wrapper{
+    width: 100% !important;
+  }
+  .nuestros-planes-page--wrapper{
+    width: 100% !important;
+  }
+}

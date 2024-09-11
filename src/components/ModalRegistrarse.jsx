@@ -52,6 +52,7 @@ function ModalRegistrarse({ show, handleClose }) {
       try {
         const { repetirContrasenia, ...userData } = e;
         const response = await client.post("/", userData);
+        console.log(response);
 
         Swal.fire({
           title: "Usuario creado con exito",
@@ -68,7 +69,7 @@ function ModalRegistrarse({ show, handleClose }) {
         }, 1000);
       } catch (error) {
         setError("root", {
-          message: error.response.data.mensaje,
+          message: "ERROR",
         });
       }
     }
@@ -144,7 +145,6 @@ function ModalRegistrarse({ show, handleClose }) {
               type="email"
               id="emailRegistro"
               placeholder="Ingrese su email"
-              maxLength="20"
               name="email"
               required
               className="bgInput"

@@ -89,18 +89,18 @@ select:hover {
   border-color: #6c757d !important;
 }
 
-select {
+.searchbar-select {
   max-width: 120px;
 }
 
-select option {
+.searchbar-select__option {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .btn-CRUD {
-  font-size: 1rem !important;
+  min-width: 25px !important;
 }
 
 .accordion-button {

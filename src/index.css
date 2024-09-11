@@ -27,14 +27,14 @@ body {
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
+
 }
 
 #root {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .main-container {
-  height: calc(100% - 372px - 122px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,7 +42,7 @@ body {
 
 nav {
   z-index: 1000;
-  min-height: 122px;
+  max-height: 110px;
 }
 
 footer {
