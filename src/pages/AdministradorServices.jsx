@@ -76,16 +76,19 @@ const AdministradorServices = () => {
           activo: true
         }
       ];
+  
+  
+  
     return (
-      <main className='flex-grow-1'>
-        <div>
-            <BannerAdminView/>
+      <>
+      <div>
+          <BannerAdminView/>
+      </div>
+      <div className="container text-align fontPage">
+         <h1 className="text-center my-4">Tabla de Servicios</h1>
+            <ServicesTable services={services} />
         </div>
-        <div className="container text-align fontPage">
-          <h1 className="text-center my-4">Tabla de Servicios</h1>
-              <ServicesTable services={services} />
-        </div>
-      </main>
+      </>
   )
 }
 

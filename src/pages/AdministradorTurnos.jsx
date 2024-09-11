@@ -1,88 +1,64 @@
-import React from "react";
 import TableTurnos from "../components/TableTurnos";
 import BannerAdminView from "../components/BannerAdminView";
+import React, { useState, useEffect } from "react";
+import clienteAxios from "../helpers/clientAxios";
 
 const AdministradorTurnos = () => {
-  const turnos = [
-    {
-      fecha: "2024-08-26",
-      hora: "10:00",
-      mascota: "Perrito",
-      veterinario: "Dr. Juan Pérez",
-      detalles: "Revisión anual y vacunación",
-    },
-    {
-      fecha: "2024-08-26",
-      hora: "11:00",
-      mascota: "Gatito",
-      veterinario: "Dra. María Rodriguez",
-      detalles: "Cirugía de esterilización",
-    },
-    {
-      fecha: "2024-08-27",
-      hora: "9:00",
-      mascota: "Tortuga",
-      veterinario: "Dr. Carlos Lopez",
-      detalles: "Revisión de la caparazón",
-    },
-    {
-      fecha: "2024-08-27",
-      hora: "10:30",
-      mascota: "Pájaro",
-      veterinario: "Dra. Ana Martinez",
-      detalles: "Corte de alas y revisión anual",
-    },
-    {
-      fecha: "2024-08-28",
-      hora: "14:00",
-      mascota: "Conejo",
-      veterinario: "Dr. Pedro Sanchez",
-      detalles: "Revisión dental",
-    },
-    {
-      fecha: "2024-08-29",
-      hora: "9:30",
-      mascota: "Perro",
-      veterinario: "Dr. Juan Pérez",
-      detalles: "Revisión anual y vacunación",
-    },
-    {
-      fecha: "2024-08-30",
-      hora: "10:00",
-      mascota: "Gato",
-      veterinario: "Dra. María Rodriguez",
-      detalles: "Cirugía de esterilización",
-    },
-    {
-      fecha: "2024-08-31",
-      hora: "11:30",
-      mascota: "Pez",
-      veterinario: "Dr. Carlos Lopez",
-      detalles: "Revisión del acuario",
-    },
-    {
-      fecha: "2024-09-01",
-      hora: "9:00",
-      mascota: "Conejo",
-      veterinario: "Dra. Ana Martinez",
-      detalles: "Revisión de la salud",
-    },
-    {
-      fecha: "2024-09-02",
-      hora: "10:30",
-      mascota: "Tortuga",
-      veterinario: "Dr. Pedro Sanchez",
-      detalles: "Revisión de la caparazón",
-    },
-  ];
+  const [turnos, setTurnos] = useState([]);
+  const [mascotas, setMascotas] = useState([]);
+  const [turnosFinales, setTurnosFinales] = useState([]);
+
+  const traerTurnos = async () => {
+    try {
+      const turnosResponse = await clienteAxios.get("/turnos");
+      const mascotasResponse = await clienteAxios.get(`/mascotas`);
+      
+      const turnosData = turnosResponse.data;
+      const mascotasData = mascotasResponse.data;
+                
+      const mapaMascotas = crearMapaMascotas(mascotasData);
+
+
+      const turnosFinales = agregarPropiedadNombreMascota(turnosData, mapaMascotas);
+
+      setTurnos(turnosData);
+      setMascotas(mascotasData);
+      setTurnosFinales(turnosFinales);
+    } catch (error) {
+      console.error("Error al traer los turnos:", error);
+    }
+  };
+
+
+  const crearMapaMascotas = (mascotas) => {
+    return new Map(mascotas.map((mascota) => [mascota._id, mascota.nombre]));
+  };
+
+ 
+  const agregarPropiedadNombreMascota = (turnos, mapaMascotas) => {
+    return turnos.map((turno) => {
+      const nombreMascota = mapaMascotas.get(turno.mascota); 
+      return {
+        ...turno,
+        nombreMascota: nombreMascota || "Mascota fuera de la DB" 
+      };
+    });
+  };
+
+  useEffect(() => {
+    traerTurnos();
+  }, []);
 
   return (
-    <main className="flex-grow-1">
+    <>
+      <div>
+        <BannerAdminView turnos={turnosFinales} setTurnos={setTurnosFinales}/>
+      </div>
       <div className="container text-align fontPage">
         <h1 className="text-center my-4">Tabla de Turnos</h1>
-        <TableTurnos turnos={turnos} />
+        <TableTurnos turnos={turnosFinales} setTurnos={setTurnosFinales} />
       </div>
-    </main>
+    </>
   );
 };
 

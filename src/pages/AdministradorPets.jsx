@@ -4,6 +4,7 @@ import BannerAdminView from '../components/BannerAdminView';
 
 
 const AdministradorPets = () => {
+   
     const pets = [
         { id: 1, nombre: 'Max', especie: 'Perro', raza: 'Labrador', edad: 5, dueno: 'Javier Garcia'},
         { id: 2, nombre: 'Nemo', especie: 'Pez', raza: 'Pez payaso', edad: 2, dueno: 'Jorge Lopez'},
@@ -18,15 +19,15 @@ const AdministradorPets = () => {
       ];
 
     return (
-        <main className='flex-grow-1'>
-            <div>
-                <BannerAdminView/>
-            </div>
-            <div className="container text-align fontPage">
-            <h1 className="text-center my-4">Tabla de Mascotas</h1>
-                <PetTable pets={pets} />
-            </div>
-        </main>
+        <>
+        <div>
+            <BannerAdminView/>
+        </div>
+        <div className="container text-align fontPage">
+         <h1 className="text-center my-4">Tabla de Mascotas</h1>
+            <PetTable pets={pets} />
+        </div>
+        </>
     );
 };
 

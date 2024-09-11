@@ -32,6 +32,9 @@ const NuestrosProfesionales = () => {
                 <CardProfesional key={1} imagen={vet1} nombre="Andres Garcia" matricula="696969"/>
                 <CardProfesional key={2} imagen={vet2} nombre="Maria Sanchez" matricula="696969"/>
                 <CardProfesional key={3} imagen={vet3} nombre="Vera Rodriguez" matricula="696969"/>
+                <CardProfesional key={4} imagen={vet1} nombre="Andres Garcia" matricula="696969"/>
+                <CardProfesional key={5} imagen={vet2} nombre="Maria Sanchez" matricula="696969"/>
+                <CardProfesional key={6} imagen={vet3} nombre="Vera Rodriguez" matricula="696969"/>
             </article>
         </section>
     );

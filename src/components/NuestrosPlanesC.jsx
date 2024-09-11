@@ -46,9 +46,9 @@ const NuestrosPlanesC = () => {
         <h2 className="text-montserrat fs-1 text-center py-5">
           Nuestros Planes
         </h2>
-        <Row className="d-flex justify-content-center align-items-center" data-aos="flip-up" >
+        <Row className="d-flex justify-content-center align-items-center">
           {listaPlanes.map((plan) => (
-            <Col xs={12} md={6} lg={4} key={plan.title} >
+            <Col xs={12} md={6} lg={4} key={plan.title}>
               <CardC
                 cardID="nuestrosPlanes"
                 image={plan.image}

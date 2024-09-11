@@ -19,7 +19,7 @@ const FooterC = () => {
 
   return (
     <>
-      <Container fluid className="mt-auto pt-4 bgColorPrincipal">
+      <Container fluid className="pt-4 bg-color-principal">
         <Row>
           <Col
             xs={12}
@@ -149,7 +149,7 @@ const FooterC = () => {
       </Container>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton closeVariant="white" className="bg-color-principal text-white">
+        <Modal.Header closeButton className="bg-color-principal text-white">
           <Modal.Title>Editar/Agregar Turno</Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-color-fondo">
