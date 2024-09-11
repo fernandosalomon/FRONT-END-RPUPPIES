@@ -33,7 +33,18 @@ function ModalRegistrarse({ show, handleClose }) {
     contrasenia: z
       .string()
       .min(8, { message: "La contraseña debe contener al menos 8 caracteres" })
-      .max(25, { message: "Máximo permitido: 25 caracteres" }),
+      .max(25, { message: "Máximo permitido: 25 caracteres" })
+      .refine(
+        (value) => {
+          return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/.test(
+            value ?? ""
+          );
+        },
+        {
+          message:
+            "La contraseña debe contener al menos una letra mayuscula, una minuscula, un número y un caracter especial(@$!%*?&)",
+        }
+      ),
     repetirContrasenia: z.string(),
   });
 
@@ -72,6 +83,11 @@ function ModalRegistrarse({ show, handleClose }) {
           message: "ERROR",
         });
       }
+    } else {
+      setError("repetirContrasenia", {
+        type: "error",
+        message: "Las contraseñas deben coincidir",
+      });
     }
   };
 
@@ -192,11 +208,6 @@ function ModalRegistrarse({ show, handleClose }) {
                 className="bgInput"
                 {...register("contrasenia")}
               />
-              {errors.contrasenia && (
-                <div className="text-danger fw-bold">
-                  {errors.contrasenia.message}
-                </div>
-              )}
             </Form.Group>
 
             <Form.Group className="mb-3">
@@ -217,13 +228,18 @@ function ModalRegistrarse({ show, handleClose }) {
                 className="bgInput"
                 {...register("repetirContrasenia")}
               />
-              {errors.repetirContrasenia && (
-                <div className="text-danger fw-bold">
-                  {errors.repetirContrasenia.message}
-                </div>
-              )}
             </Form.Group>
           </div>
+          {errors.contrasenia && (
+            <div className="text-danger fw-bold">
+              {errors.contrasenia.message}
+            </div>
+          )}
+          {errors.repetirContrasenia && (
+            <div className="text-danger fw-bold">
+              {errors.repetirContrasenia.message}
+            </div>
+          )}
           {errors.root && (
             <div className="text-danger fw-bold">{errors.root.message}</div>
           )}
