@@ -3,7 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import clienteAxios from "../helpers/clientAxios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -11,9 +11,6 @@ import { useEffect, useState } from "react";
 function ModalIniciarSesion({ show, handleClose, handleLogIn }) {
   const [userRol, setUserRol] = useState("");
   const navigate = useNavigate();
-  const client = axios.create({
-    baseURL: "http://localhost:3001/api/usuarios",
-  });
 
   const loginSchema = z.object({
     email: z
@@ -34,7 +31,7 @@ function ModalIniciarSesion({ show, handleClose, handleLogIn }) {
 
   const onSubmit = async (e) => {
     try {
-      const response = await client.post("/login", e);
+      const response = await clienteAxios.post("usuarios/login", e);
       console.log(response);
       if (response.data.token) {
         Swal.fire({

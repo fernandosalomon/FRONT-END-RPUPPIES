@@ -3,15 +3,12 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import clienteAxios from "../helpers/clientAxios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 function ModalRegistrarse({ show, handleClose }) {
   const navigate = useNavigate();
-  const client = axios.create({
-    baseURL: "http://localhost:3001/api/usuarios",
-  });
 
   const registerSchema = z.object({
     nombre: z
@@ -62,8 +59,7 @@ function ModalRegistrarse({ show, handleClose }) {
     if (e.contrasenia === e.repetirContrasenia) {
       try {
         const { repetirContrasenia, ...userData } = e;
-        const response = await client.post("/", userData);
-        console.log(response);
+        const response = await clientAxios.post("/usuarios/", userData);
 
         Swal.fire({
           title: "Usuario creado con exito",

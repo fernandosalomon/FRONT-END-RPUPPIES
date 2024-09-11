@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import AdministradorPets from "../../pages/AdministradorPets";
 import AdministradorTurnos from "../../pages/AdministradorTurnos";
 import AdministradorUsuarios from "../../pages/AdministradorUsuarios";
 import AdministradorPage from "../../pages/AdministradorPage";

@@ -1,4 +1,4 @@
-import axios from "axios";
+import clienteAxios from "../helpers/clientAxios";
 import MisMascotas from "../components/MisMascotas";
 import PubliPeluqueria from "../components/PubliPeluqueria";
 import { useEffect, useState } from "react";
@@ -6,13 +6,9 @@ import { useEffect, useState } from "react";
 const MisMascotasPage = () => {
   const [mascotas, setMascotas] = useState([]);
 
-  const client = axios.create({
-    baseURL: "http://localhost:3001/api/mascotas",
-  });
-
   const getMascotas = async () => {
     try {
-      const mascotasDB = await client.get("/", {
+      const mascotasDB = await clienteAxios.get("/mascotas/", {
         headers: {
           auth: sessionStorage.getItem("userToken"),
         },

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import clienteAxios from "../helpers/clientAxios";
 import Swal from "sweetalert2";
 import styleGeneral from "../../src/index.module.css";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -81,15 +81,16 @@ function ModalEditarMascota({ show, handleClose, mascota }) {
   });
 
   const onSubmit = async (e) => {
-    const client = axios.create({
-      baseURL: "http://localhost:3001/api/mascotas",
-    });
     try {
-      const response = await client.put(`/${mascotaDatos._id}`, e, {
-        headers: {
-          auth: sessionStorage.getItem("userToken"),
-        },
-      });
+      const response = await clienteAxios.put(
+        `/mascotas/${mascotaDatos._id}`,
+        e,
+        {
+          headers: {
+            auth: sessionStorage.getItem("userToken"),
+          },
+        }
+      );
       Swal.fire({
         title: "La mascota fue actualizada",
         text: `${response.data.mensaje}`,

@@ -1,234 +1,8 @@
-// import { useEffect, useRef, useState } from "react";
-// import { Button, Container, Form, Modal } from "react-bootstrap";
-// import { useForm } from "react-hook-form";
-// import InputGroup from "react-bootstrap/InputGroup";
-// import Swal from "sweetalert2";
-// import axios from "axios";
-// import { z } from "zod";
-// import DataTable from "react-data-table-component";
-// import "../css/TableC.css";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useNavigate } from "react-router-dom";
-
-// const TableC = ({ tableID }) => {
-//   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-//   const [tableData, setTableData] = useState([]);
-//   const [filteredData, setFilteredData] = useState([]);
-//   const searchParamBar = useRef(null);
-//   const [pending, setPending] = useState(true);
-
-//   const [formData, setFormData] = useState([]);
-//   const [showFullName, setShowFullName] = useState();
-//   const navigate = useNavigate();
-
-//   useState(() => {
-//     if (windowWidth < 426) {
-//       setShowFullName(true);
-//     }
-//   }, [windowWidth]);
-
-//   useEffect(() => {
-//     reset(formData);
-//   }, [showEditarPerfil]);
-
-//   const getUsers = async () => {
-//     try {
-//       const response = await client.get("/");
-//       await setTableData(response.data);
-//       await setPending(false);
-//       await setFilteredData(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     getUsers();
-
-//     if (window.innerWidth < 426) {
-//       setShowFullName(true);
-//     } else {
-//       setShowFullName(false);
-//     }
-//   }, []);
-
-//   //FUNCIONES CRUD USUARIO
-//   const columns = [
-//     {
-//       name: "ID",
-//       value: "_id",
-//       selector: (row) => row._id,
-//       hide: "md",
-//     },
-//     {
-//       name: "Nombre",
-//       value: "nombre",
-//       selector: (row) => row.nombre,
-//       omit: showFullName,
-//     },
-//     {
-//       name: "Apellido",
-//       value: "apellido",
-//       selector: (row) => row.apellido,
-//       omit: showFullName,
-//     },
-//     {
-//       name: "Nombre Completo",
-//       selector: (row) => row.nombre + " " + row.apellido,
-//       omit: !showFullName,
-//     },
-//     {
-//       name: "Email",
-//       value: "email",
-//       selector: (row) => row.email,
-//       hide: "sm",
-//     },
-//     {
-//       name: "Teléfono",
-//       value: "telefono",
-//       selector: (row) => row.telefono,
-//       hide: "md",
-//     },
-//     {
-//       name: "Rol",
-//       value: "rol",
-//       selector: (row) => row.rol,
-//       hide: "sm",
-//     },
-//     {
-//       name: "Opciones",
-//       value: "options",
-//       selector: (row) => (
-//         <>
-//           <div className="d-flex gap-2">
-//             <button
-//               className="btnPersonalized3"
-//               onClick={() => {
-//                 handleShowEditarPerfil(row);
-//               }}
-//             >
-//               <i className="bi bi-pencil-square fs-4"></i>
-//             </button>
-
-//             <button
-//               className="btn btn-warning"
-//               onClick={() => {
-//                 deshabilitarUsuario(row._id, row.bloqueado);
-//               }}
-//             >
-//               {row.bloqueado ? (
-//                 <i className="bi bi-person-fill-check fs-3"></i>
-//               ) : (
-//                 <i className="bi bi-person-fill-slash fs-3"></i>
-//               )}
-//             </button>
-//             <button
-//               className="btn btn-danger"
-//               onClick={() => {
-//                 eliminarUsuario(row._id);
-//               }}
-//             >
-//               <i className="bi bi-trash fs-4"></i>
-//             </button>
-//           </div>
-//         </>
-//       ),
-//       grow: 2,
-//     },
-//   ];
-
-//   //FUNCIONES BUSCADOR TABLA
-
-//   const customSearch = (obj, filter, filterValue) => {
-//     const newObj = [];
-
-//     Object.keys(obj).forEach((key) => {
-//       obj[key][filter].toLowerCase().indexOf(filterValue.toLowerCase()) >= 0 &&
-//         newObj.push(key);
-//     });
-//     return newObj;
-//   };
-
-//   const handleSearch = (e) => {
-//     let newTableData = [];
-//     if (e.target.value === "") {
-//       setFilteredData(tableData);
-//     } else {
-//       const searchParam = searchParamBar.current.value;
-//       newTableData = customSearch(tableData, searchParam, e.target.value);
-//       handleFilterData(newTableData);
-//     }
-//   };
-
-//   const handleFilterData = (dataToShow) => {
-//     if (dataToShow.length) {
-//       let newData = [];
-//       dataToShow.forEach((value) => {
-//         newData.push(tableData[value]);
-//       });
-//       setFilteredData(newData);
-//     } else {
-//       setFilteredData([]);
-//     }
-//   };
-
-//   return (
-//     <>
-//       <Container className="m-auto">
-//         <Form className="w-50 ms-auto">
-//           <Form.Label htmlFor="inlineFormInputGroup" visuallyHidden>
-//             Buscar
-//           </Form.Label>
-//           <InputGroup className="mb-2">
-//             <InputGroup.Text>
-//               <i className="bi bi-search"></i>
-//             </InputGroup.Text>
-//             <Form.Control id="inlineFormInputGroup" onChange={handleSearch} />
-//             <Form.Select
-//               style={{ maxWidth: "200px" }}
-//               aria-label="Default select example"
-//               ref={searchParamBar}
-//             >
-//               {columns.map(
-//                 (column) =>
-//                   column.name !== "Opciones" && (
-//                     <option key={column.name} value={column.value}>
-//                       {column.name}
-//                     </option>
-//                   )
-//               )}
-//             </Form.Select>
-//           </InputGroup>
-//         </Form>
-//         <div className="table--wrapper">
-//           <DataTable
-//             columns={columns}
-//             data={filteredData}
-//             pagination
-//             fixedHeader
-//             responsive
-//             paginationComponentOptions={{
-//               rowsPerPageText: "Filas por página",
-//               rangeSeparatorText: "de",
-//               selectAllRowsItem: true,
-//               selectAllRowsItemText: "Todos",
-//             }}
-//             progressPending={pending}
-//           />
-//         </div>
-//       </Container>
-
-//     </>
-//   );
-// };
-
-// export default TableC;
-
 import "../css/CustomTable.css";
 import { useState, useEffect, useCallback } from "react";
 import useTable from "../hooks/useTable";
 import { Modal, Button, Accordion, Form, InputGroup } from "react-bootstrap";
-import axios from "axios";
+import clienteAxios from "../helpers/clientAxios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -332,10 +106,6 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
   const [userData, setUserData] = useState([]);
   const [pending, setPending] = useState(true);
 
-  const client = axios.create({
-    baseURL: "http://localhost:3001/api/usuarios",
-  });
-
   const handleShowEditarPerfil = (data) => {
     setShowEditarPerfil(true);
     setFormData({
@@ -372,8 +142,8 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
       confirmButtonText: `${is_bloqueado ? "Habilitar" : "Deshabilitar"}`,
     }).then((result) => {
       if (result.isConfirmed) {
-        client
-          .put(`/${userID}`, {
+        clientAxios
+          .put(`/usuarios/${userID}`, {
             bloqueado: !is_bloqueado,
           })
           .catch((error) => {
@@ -406,7 +176,7 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("El usuario fue eliminado", "", "success");
-        client.delete(`/${userID}`).catch((error) => {
+        clientAxios.delete(`/usuarios/${userID}`).catch((error) => {
           console.log(error);
         });
       }
@@ -415,7 +185,7 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
 
   const getUsers = async () => {
     try {
-      const response = await client.get("/");
+      const response = await clientAxios.get("/usuarios/");
       await setUserData(response.data);
       await setPending(false);
     } catch (error) {
@@ -475,7 +245,7 @@ const TableC = ({ tableID, data, columns, rowsPerPage }) => {
 
   const onSubmit = async (e) => {
     try {
-      const response = await client.put(`/${formData._id}`, e);
+      const response = await clientAxios.put(`/usuarios/${formData._id}`, e);
       if (response.status === 200) {
         Swal.fire({
           title: "Los datos se actualizaron con exito",

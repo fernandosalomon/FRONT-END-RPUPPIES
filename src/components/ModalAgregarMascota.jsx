@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import clienteAxios from "../helpers/clientAxios";
 import Swal from "sweetalert2";
 import styleGeneral from "../../src/index.module.css";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -56,12 +56,8 @@ function ModalAgregarMascota({ show, handleClose, mascota }) {
   });
 
   const onSubmit = async (e) => {
-    const client = axios.create({
-      baseURL: "http://localhost:3001/api/mascotas",
-    });
-    console.log(e);
     try {
-      const response = await client.post("/", e, {
+      const response = await clienteAxios.post("/mascotas", e, {
         headers: {
           auth: sessionStorage.getItem("userToken"),
         },

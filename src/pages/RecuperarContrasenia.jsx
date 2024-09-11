@@ -2,23 +2,18 @@ import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import clienteAxios from "../helpers/clientAxios";
 import { useEffect, useState } from "react";
 
 const RecuperarContrasenia = () => {
   const location = useLocation();
   const [userID, setUserID] = useState(null);
   const [token, setToken] = useState(location.search.split("?")[1]);
-  console.log(token);
-
-  const client = axios.create({
-    baseURL: "https://localhost:3001",
-  });
 
   useEffect(() => {
     const verifyToken = async () => {
-      await client
-        .post(`/token`)
+      await clienteAxios
+        .post(`/usuarios/token`)
         .then((res) => {
           setUserID(res.data);
         })

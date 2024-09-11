@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const clienteAxios = axios.create({
-    baseURL: `http://localhost:3001/api`
-})
+  baseURL: `back-end-rpuppies.vercel.app/api`,
+});
 
-export default clienteAxios
+export default clienteAxios;
