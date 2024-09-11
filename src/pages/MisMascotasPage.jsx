@@ -37,6 +37,8 @@ const MisMascotasPage = () => {
     <main className="flex-grow-1">
       <MisMascotas mascotas={mascotas} />
       <PubliPeluqueria />
-
+    </main>
+  );
+}
 
 export default MisMascotasPage;

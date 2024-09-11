@@ -35,9 +35,7 @@ const Desarrolladores = () => {
             </article>
             <article className={styleDesarrolladores.contenedorDesarrolladores}>
                 <Desarrollador img={maxiSoriano} nombre="Maximiliano Soriano" puesto="Desarrollador Full Stack" descripcion="html, css, js,react, mysql, mongoDB, java, php and python." linkedin="https://www.linkedin.com/in/maximiliano-soriano" github="https://github.com/MaxiSoriano70" porfolio="https://maximiliano-soriano-porfolio.netlify.app/"/>
-                <Desarrollador img={maxiSoriano} nombre="Maximiliano Soriano" puesto="Desarrollador Full Stack" descripcion="html, css, js,react, mysql, mongoDB, java, php and python." linkedin="https://www.linkedin.com/in/maximiliano-soriano" github="https://github.com/MaxiSoriano70" porfolio="https://maximiliano-soriano-porfolio.netlify.app/"/>
-                <Desarrollador img={maxiSoriano} nombre="Maximiliano Soriano" puesto="Desarrollador Full Stack" descripcion="html, css, js,react, mysql, mongoDB, java, php and python." linkedin="https://www.linkedin.com/in/maximiliano-soriano" github="https://github.com/MaxiSoriano70" porfolio="https://maximiliano-soriano-porfolio.netlify.app/"/>
-                <Desarrollador img={maxiSoriano} nombre="Maximiliano Soriano" puesto="Desarrollador Full Stack" descripcion="html, css, js,react, mysql, mongoDB, java, php and python." linkedin="https://www.linkedin.com/in/maximiliano-soriano" github="https://github.com/MaxiSoriano70" porfolio="https://maximiliano-soriano-porfolio.netlify.app/"/>
+                <Desarrollador img={maxiSoriano} nombre="Fernando Salomon" puesto="Desarrollador Full Stack" descripcion="html, css, js,react, mysql, mongoDB, java, php and python." linkedin="https://www.linkedin.com/in/maximiliano-soriano" github="https://github.com/MaxiSoriano70" porfolio="https://maximiliano-soriano-porfolio.netlify.app/"/>
             </article>
     </section>
     );

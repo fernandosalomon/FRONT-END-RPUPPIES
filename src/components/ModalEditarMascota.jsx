@@ -22,84 +22,27 @@ function ModalAgregarMascota({ show, handleClose, mascota }) {
     baseURL: "http://localhost:3001/api/mascotas",
   });
 
-  const [nombreValido, setNombreValido] = useState(-1);
-  const [fechaDeNacimientoValido, setFechaDeNacimientoValido] = useState(-1);
-  const [sexoValido, setSexoValido] = useState(-1);
-  const [especieValido, setEspecieValido] = useState(-1);
-  const [razaValido, setRazaValido] = useState(-1);
-  const [colorDePeloValido, setColorDePeloValido] = useState(-1);
-  const [pesoKgValido, setPesoKgValido] = useState(-1);
-  const [esterilizadoValido, setEsterilizadoValido] = useState(-1);
-  const [domicilioValido, setDomicilioValido] = useState(-1);
-  const [observacionesValido, setObservacionesValido] = useState(-1);
+  const [nombreValido, setNombreValido] = useState(1);
+  const [fechaDeNacimientoValido, setFechaDeNacimientoValido] = useState(1);
+  const [sexoValido, setSexoValido] = useState(1);
+  const [especieValido, setEspecieValido] = useState(1);
+  const [razaValido, setRazaValido] = useState(1);
+  const [colorDePeloValido, setColorDePeloValido] = useState(1);
+  const [pesoKgValido, setPesoKgValido] = useState(1);
+  const [esterilizadoValido, setEsterilizadoValido] = useState(1);
+  const [domicilioValido, setDomicilioValido] = useState(1);
+  const [observacionesValido, setObservacionesValido] = useState(1);
 
-  const [nombreError, setNombreError] = useState(-1);
-  const [fechaDeNacimientoError, setFechaDeNacimientoError] = useState(-1);
-  const [sexoError, setSexoError] = useState(-1);
-  const [especieError, setEspecieError] = useState(-1);
-  const [razaError, setRazaError] = useState(-1);
-  const [colorDePeloError, setColorDePeloError] = useState(-1);
-  const [pesoKgError, setPesoKgError] = useState(-1);
-  const [esterilizadoError, setEsterilizadoError] = useState(-1);
-  const [domicilioError, setDomicilioError] = useState(-1);
-  const [observacionesError, setObservacionesError] = useState(-1);
-
-  const resetFormulario = () => {
-    setMacotaDatos({
-      nombre: "",
-      fechaDeNacimiento: "",
-      sexo: "",
-      especie: "",
-      raza: "",
-      colorDePelo: "",
-      pesoKg: 0,
-      esterilizado: 0,
-      domicilio: "",
-      observaciones: "",
-    });
-    setNombreValido(-1);
-    setFechaDeNacimientoValido(-1);
-    setSexoValido(-1);
-    setEspecieValido(-1);
-    setRazaValido(-1);
-    setColorDePeloValido(-1);
-    setPesoKgValido(-1);
-    setEspecieValido(-1);
-    setDomicilioValido(-1);
-    setObservacionesValido(-1);
-    setNombreError(-1);
-    setFechaDeNacimientoError(-1);
-    setSexoError(-1);
-    setEspecieError(-1);
-    setRazaError(-1);
-    setColorDePeloError(-1);
-    setPesoKgError(-1);
-    setEsterilizadoError(-1);
-    setDomicilioError(-1);
-    setObservacionesError(-1);
-  };
-
-  //   useEffect(() => {
-  //     console.log(nombreValido);
-  //     console.log(fechaDeNacimientoValido);
-  //     console.log(sexoValido);
-  //     console.log(especieValido);
-  //     console.log(razaValido);
-  //     console.log(colorDePeloValido);
-  //     console.log(pesoKgValido);
-  //     console.log(esterilizadoValido);
-  //     console.log(domicilioValido);
-  //   }, [
-  //     nombreValido,
-  //     fechaDeNacimientoValido,
-  //     sexoValido,
-  //     especieValido,
-  //     razaValido,
-  //     colorDePeloValido,
-  //     pesoKgValido,
-  //     esterilizadoValido,
-  //     domicilioValido,
-  //   ]);
+  const [nombreError, setNombreError] = useState(1);
+  const [fechaDeNacimientoError, setFechaDeNacimientoError] = useState(1);
+  const [sexoError, setSexoError] = useState(1);
+  const [especieError, setEspecieError] = useState(1);
+  const [razaError, setRazaError] = useState(1);
+  const [colorDePeloError, setColorDePeloError] = useState(1);
+  const [pesoKgError, setPesoKgError] = useState(1);
+  const [esterilizadoError, setEsterilizadoError] = useState(1);
+  const [domicilioError, setDomicilioError] = useState(1);
+  const [observacionesError, setObservacionesError] = useState(1);
 
   const handleChangeNombre = (e) => {
     setMacotaDatos({ ...mascotaDatos, nombre: e.target.value });
