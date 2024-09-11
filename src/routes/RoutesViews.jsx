@@ -40,6 +40,10 @@ const RoutesViews = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(isAdmin);
+  }, [isAdmin]);
+
   return (
     <>
       <NavbarC
