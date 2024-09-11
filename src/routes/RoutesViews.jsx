@@ -9,6 +9,7 @@ import AdministradorTurnos from "../pages/AdministradorTurnos";
 import { usePageTitle } from "../helpers/usePageTitle";
 import FooterC from "../components/FooterC";
 import MisMascotasPage from "../pages/MisMascotasPage";
+import DesarrolladoresPage from "../pages/DesarrolladoresPage";
 
 const RoutesViews = () => {
   const location = useLocation();
@@ -17,7 +18,6 @@ const RoutesViews = () => {
     <>
       <NavbarC />
       <Routes>
-
         <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
         {isAdmin ? (
           <Route path="/administrador/*" element={<AdminRoutes />} />
