@@ -154,11 +154,12 @@ const FooterC = ({ isLogged }) => {
                   <p className="fs-5 m-0 text-white">8:00 a 20:00</p>
                 </div>
                 <div className="mt-3">
-                  {isUserLogged && (
-                    <Button className="btn-1" onClick={handleShow}>
-                      Reservar Turno
-                    </Button>
-                  )}
+                  {isUserLogged &&
+                    sessionStorage.getItem("userRole") !== "admin" && (
+                      <Button className="btn-1" onClick={handleShow}>
+                        Reservar Turno
+                      </Button>
+                    )}
                 </div>
               </div>
             </div>

@@ -120,7 +120,7 @@ const NavbarC = ({ isLogged, handleIsLogged }) => {
               >
                 <div className="d-flex w-100 p-0 gap-3 justify-content-center justify-content-md-start">
                   <Link
-                    to="#"
+                    to="/nosotros"
                     className="nav-link fw-medium text-white text-center d-inline"
                   >
                     Nosotros
@@ -132,7 +132,7 @@ const NavbarC = ({ isLogged, handleIsLogged }) => {
                     Planes
                   </Link>
                   <Link
-                    to="#"
+                    to="/contacto"
                     className="nav-link fw-medium text-white text-center d-inline"
                   >
                     Contacto
@@ -152,9 +152,11 @@ const NavbarC = ({ isLogged, handleIsLogged }) => {
           >
             {userLogged ? (
               <div className="d-flex justify-content-end align-items-center me-5">
-                <Link to="#" className="nav-link">
-                  <i className="bi bi-calendar-event fs-1 me-2 text-white"></i>
-                </Link>
+                {sessionStorage.getItem("userRole") !== "admin" && (
+                  <Link to="#" className="nav-link">
+                    <i className="bi bi-calendar-event fs-1 me-2 text-white"></i>
+                  </Link>
+                )}
 
                 <Dropdown className="ms-2">
                   <Dropdown.Toggle
