@@ -4,6 +4,7 @@ import PubliPeluqueria from "../components/PubliPeluqueria";
 import { useEffect, useState } from "react";
 
 const MisMascotasPage = () => {
+
   const [mascotas, setMascotas] = useState([]);
 
   const client = axios.create({
@@ -36,8 +37,6 @@ const MisMascotasPage = () => {
     <main className="flex-grow-1">
       <MisMascotas mascotas={mascotas} />
       <PubliPeluqueria />
-    </main>
-  );
-};
+
 
 export default MisMascotasPage;

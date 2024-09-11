@@ -240,7 +240,7 @@ function ModalRegistrarse({ show, handleClose }) {
             </Button>
             <Button
               type="reset"
-              className="styleGeneral.btnPersonalized1 mx-1 fw-bold"
+              className="btnPersonalized1 mx-1 fw-bold"
               aria-label="Cancelar"
               onClick={() => {
                 handleClose();
