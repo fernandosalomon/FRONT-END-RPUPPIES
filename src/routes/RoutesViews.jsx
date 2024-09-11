@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { usePageTitle } from "../helpers/usePageTitle";
 import HomePage from "../pages/HomePage";
 import Error404Page from "../pages/Error404Page";
@@ -18,6 +18,13 @@ const RoutesViews = () => {
   const [isLogged, setIsLogged] = useState(false);
   const [userRol, setUserRol] = useState("");
 
+  const handleIsLogged = useCallback(
+    (isLogged) => {
+      setIsLogged(isLogged);
+    },
+    [isLogged]
+  );
+
   useEffect(() => {
     if (sessionStorage.getItem("userRole")) {
       setUserRol(sessionStorage.getItem("userRole"));
@@ -31,7 +38,11 @@ const RoutesViews = () => {
 
   return (
     <>
-      <NavbarC isLogged={isLogged} isAdmin={isAdmin} />
+      <NavbarC
+        isLogged={isLogged}
+        isAdmin={isAdmin}
+        handleIsLogged={handleIsLogged}
+      />
       <Routes>
         <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
         {isAdmin ? (

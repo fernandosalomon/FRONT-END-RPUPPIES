@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function ModalIniciarSesion({ show, handleClose }) {
+function ModalIniciarSesion({ show, handleClose, handleLogIn }) {
   const [userRol, setUserRol] = useState("");
   const navigate = useNavigate();
   const client = axios.create({
@@ -47,6 +47,7 @@ function ModalIniciarSesion({ show, handleClose }) {
         sessionStorage.setItem("userToken", response.data.token);
         sessionStorage.setItem("userRole", response.data.rol);
         handleClose();
+        handleLogIn(true);
         setTimeout(() => {
           if (userRol === "admin") {
             navigate("/administrador");
@@ -57,7 +58,7 @@ function ModalIniciarSesion({ show, handleClose }) {
       } else {
         Swal.fire({
           title: "Algo salio mal",
-          text: `${response.data}`,
+          text: `${response.data.mensajeError}`,
           icon: "error",
         });
       }

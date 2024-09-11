@@ -69,8 +69,9 @@ const CardC = ({ cardID, image, title, body, buttonText }) => {
             )}
           </Container>
           <Container className="d-flex justify-content-center">
-            {cardID !== "testimonials" ||
-              (cardID !== "nuestrosPlanes" && <Button>{buttonText}</Button>)}
+            {cardID !== "testimonials" && cardID !== "nuestrosPlanes" && (
+              <Button>{buttonText}</Button>
+            )}
           </Container>
         </Card.Body>
       </Card>

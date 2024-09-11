@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -14,7 +14,7 @@ import ModalRegistrarse from "./ModalRegistrarse";
 import ModalEditarPerfil from "./ModalEditarPerfil";
 import "../css/NavbarC.css";
 
-const NavbarC = ({ isLogged, isAdmin }) => {
+const NavbarC = ({ isLogged, handleIsLogged }) => {
   const [userRole, setUserRole] = useState();
   const [userLogged, setUserLogged] = useState();
   const navigate = useNavigate();
@@ -32,10 +32,24 @@ const NavbarC = ({ isLogged, isAdmin }) => {
   const handleOpenModalEditarPerfil = () => setShowModalEditarPerfil(true);
   const handleCloseModalEditarPerfil = () => setShowModalEditarPerfil(false);
 
+  const handleLogIn = useCallback(
+    (isLogged) => {
+      setUserLogged(isLogged);
+      setUserRole(sessionStorage.getItem("userRole"));
+      handleIsLogged(isLogged);
+    },
+    [isLogged]
+  );
+
   useEffect(() => {
-    setUserRole(isAdmin ? "admin" : "user");
-    setUserLogged(isLogged);
-  }, [isLogged, isAdmin]);
+    if (sessionStorage.getItem("userRole")) {
+      setUserRole(sessionStorage.getItem("userRole"));
+    }
+    const userToken = sessionStorage.getItem("userToken") || null;
+    if (userToken) {
+      setUserLogged(true);
+    }
+  }, []);
 
   const handleCloseSession = () => {
     sessionStorage.removeItem("userToken");
@@ -49,6 +63,7 @@ const NavbarC = ({ isLogged, isAdmin }) => {
       showConfirmButton: false,
       timer: 2000,
     });
+    handleLogIn(false);
     setTimeout(() => {
       navigate("/");
     }, 1500);
@@ -168,6 +183,7 @@ const NavbarC = ({ isLogged, isAdmin }) => {
                     <ModalIniciarSesion
                       show={showModalIniciarSesion}
                       handleClose={handleCloseModalIniciarSesion}
+                      handleLogIn={handleLogIn}
                     />
                     <button
                       className="btn-1"
