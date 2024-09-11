@@ -52,12 +52,12 @@ const RoutesViews = () => {
         {userRol === "admin" ? (
           <Route path="/administrador/*" element={<AdminRoutes />} />
         ) : (
-          <Route path="/error404" element={<Error404Page />} />
+          <Route path="*" element={<Error404Page />} />
         )}
         {isLogged ? (
           <Route path="/*" element={<LoggedRoutes />} />
         ) : (
-          <Route path="/error404" element={<Error404Page />} />
+          <Route path="*" element={<Error404Page />} />
         )}
 
         <Route path="/nuestros-planes" element={<NuestrosPlanesPage />} />
