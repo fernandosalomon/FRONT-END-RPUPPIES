@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import CardC from "./CardC";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import "../css/NuestrosPlanesC.css";
+import { Link } from "react-router-dom";
 
 const NuestrosPlanesC = () => {
   const [listaPlanes, setListaPlanes] = useState([]);
@@ -32,21 +33,18 @@ const NuestrosPlanesC = () => {
     },
   ];
 
-  //############## PARA PROBAR - CAMBIAR CUANDO SE AGREGUE LA LÓGICA ############################
   useEffect(() => {
     setListaPlanes(planesDisponibles);
     console.log(listaPlanes);
   }, []);
 
-  //#################################################################################################
-
   return (
     <>
-      <Container fluid className="bg-color-fondo pb-5">
+      <Container className="bg-color-fondo pb-5">
         <h2 className="text-montserrat fs-1 text-center py-5">
           Nuestros Planes
         </h2>
-        <Row className="d-flex justify-content-center align-items-center">
+        <Row className="d-flex justify-content-center align-items-center gy-3">
           {listaPlanes.map((plan) => (
             <Col xs={12} md={6} lg={4} key={plan.title}>
               <CardC
@@ -58,6 +56,15 @@ const NuestrosPlanesC = () => {
               />
             </Col>
           ))}
+          <Col className="d-flex justify-content-center">
+            <Button
+              className="btn btn-1 w-75 mt-2"
+              as={Link}
+              to="/nuestros-planes"
+            >
+              Conocer más
+            </Button>
+          </Col>
         </Row>
       </Container>
     </>

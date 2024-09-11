@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const DireccionC = () => {
   return (
     <>
-      <Container fluid className="bg-color-fondo p-0">
+      <Container fluid className="bgColorPrincipal text-white p-0">
         <Row className="p-0">
           <Col xs={{ span: 12, order: 2 }} md={{ span: 7, order: 1 }}>
             <iframe

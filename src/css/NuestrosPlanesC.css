@@ -1,7 +1,7 @@
 .card--wrapper__nuestrosPlanes {
   min-width: 300px !important;
-  min-height: 600px !important;
   border-radius: 5% !important;
+  max-height: 500px !important;
 }
 
 .card--img__nuestrosPlanes {
