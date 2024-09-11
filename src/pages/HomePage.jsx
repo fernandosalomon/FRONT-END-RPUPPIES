@@ -3,7 +3,7 @@ import DireccionC from "../components/DireccionC";
 import NuestrosPlanesC from "../components/NuestrosPlanesC";
 import TestimonialsC from "../components/TestimonialsC";
 import NuestrasMarcas from "../components/NuestrasMarcas";
-import NuestrosProfesionales from "../components/nuestrosProfesionales";
+import NuestrosProfesionales from "../components/NuestrosProfesionales";
 import NuestrosServicios from "../components/NuestrosServicios";
 
 const HomePage = () => {
@@ -11,14 +11,13 @@ const HomePage = () => {
     <>
       <BannerC />
       <TestimonialsC />
-      <NuestrosServicios/>
+      <NuestrosServicios />
       <NuestrosPlanesC />
-      <NuestrasMarcas/>
-      <NuestrosProfesionales/>
+      <NuestrasMarcas />
+      <NuestrosProfesionales />
       <DireccionC />
     </>
   );
 };
-
 
 export default HomePage;
