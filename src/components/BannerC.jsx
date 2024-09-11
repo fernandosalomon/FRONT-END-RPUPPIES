@@ -14,7 +14,7 @@ const BannerC = () => {
               cuidado posible.
             </p>
             <div className="banner-btn">
-              <Button className="btn-1" as={Link} to="/acerca-nosotros">
+              <Button className="btn-1 fs-3" as={Link} to="/acerca-nosotros">
                 Saber más
               </Button>
             </div>

@@ -14,3 +14,9 @@
 .dropdown-menu button {
   padding: 0.5rem 1rem !important;
 }
+
+@media (max-width: 768px) {
+  nav {
+    font-size: 1.2rem !important;
+  }
+}

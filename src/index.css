@@ -150,13 +150,13 @@ nav {
   display: inline-flex !important;
   font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica,
     Arial, sans-serif !important;
-  font-size: 20px !important;
+  /* font-size: 20px !important; */
   font-weight: 600;
   justify-content: center !important;
   line-height: 1.25 !important;
   margin: 0 !important;
   min-height: 3rem !important;
-  padding: calc(0.875rem - 1px) calc(1.5rem - 1px) !important;
+  padding: calc(0.875rem - 1px) calc(1rem - 1px) !important;
   position: relative !important;
   text-decoration: none !important;
   transition: all 250ms !important;
