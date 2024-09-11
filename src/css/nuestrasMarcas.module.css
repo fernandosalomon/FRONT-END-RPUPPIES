@@ -1,0 +1,148 @@
+.nuestrasMarcas{
+    width: 100%;
+    padding: 10px 20px;
+    margin: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.nuestrasMarcas .marcaTitulo{
+    margin-bottom: 10px;
+}
+
+.nuestrasMarcas .marcaTitulo h3{
+    text-transform: uppercase;
+}
+
+.nuestrasMarcas .marcas{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nuestrasMarcas .marcas .contenedorLogo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-blanco);
+    width: 175px;
+    height: 100px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin: 10px 10px;
+    box-shadow: 2px 3px 5px rgba(73, 69, 52, 0.4);
+}
+
+.nuestrasMarcas .marcas .contenedorLogo .logoRoyalCanin{
+    width: 175px;
+    height: 100px;
+    aspect-ratio: 1.75;
+}
+
+.nuestrasMarcas .marcas .contenedorLogo .logoPurina{
+    width: 175px;
+    height: 100px;
+    aspect-ratio: 1.75;
+}
+
+.nuestrasMarcas .marcas .contenedorLogo .logoNexgard{
+    width: 175px;
+    height: 100px;
+    aspect-ratio: 1.75;
+}
+
+.nuestrasMarcas .marcas .contenedorLogo .logoBravexto{
+    width: 175px;
+    height: 100px;
+    aspect-ratio: 1.75;
+}
+
+.nuestrasMarcas .marcas .contenedorLogo .logoPurinaProPlan{
+    width: 130px;
+    height: 55px;
+    aspect-ratio: 2.3636;
+}
+
+.nuestrasMarcas .marcas .contenedorLogo .logoWhiskas{
+    width: 120px;
+    height: 100px;
+    aspect-ratio: 1.2;
+}
+
+@media (max-width:630px) {
+    .nuestrasMarcas .marcas .contenedorLogo{
+        width: 150px;
+        height: 75px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoRoyalCanin{
+        width: 150px;
+        height: 75px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoPurina{
+        width: 150px;
+        height: 75px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoNexgard{
+        width: 150px;
+        height: 75px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoBravexto{
+        width: 150px;
+        height: 75px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoPurinaProPlan{
+        width: 105px;
+        height: 30px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoWhiskas{
+        width: 95px;
+        height: 80px;
+    }
+}
+
+@media (max-width:380px) {
+    .nuestrasMarcas .marcas .contenedorLogo{
+        width: 90px;
+        height: 55px;
+        border-radius: 15px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoRoyalCanin{
+        width: 90px;
+        height: 55px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoPurina{
+        width: 90px;
+        height: 55px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoNexgard{
+        width: 90px;
+        height: 55px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoBravexto{
+        width: 90px;
+        height: 55px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoPurinaProPlan{
+        width: 70px;
+        height: 30px;
+    }
+
+    .nuestrasMarcas .marcas .contenedorLogo .logoWhiskas{
+        width: 65px;
+        height: 55px;
+    }
+}

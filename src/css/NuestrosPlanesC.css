@@ -1,0 +1,44 @@
+.card--wrapper__nuestrosPlanes {
+  min-width: 300px !important;
+  border-radius: 5% !important;
+  max-height: 500px !important;
+}
+
+.card--img__nuestrosPlanes {
+  width: 250px !important;
+  height: 250px !important;
+  overflow: hidden;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card--img__nuestrosPlanes img {
+  height: 300px;
+  width: 300px;
+}
+
+.card--title__nuestrosPlanes {
+  margin: 1rem 0 !important;
+  text-align: center;
+  font-size: 2rem !important;
+  font-weight: 400 !important;
+}
+
+.card--description__nuestrosPlanes {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 200 !important;
+  line-height: 1.7rem !important;
+  padding: 0 1rem;
+  min-height: 140px;
+  max-height: 250px;
+}
+
+.card--btn__nuestrosPlanes {
+  font-size: 1.2rem !important;
+  margin: 1rem auto;
+  width: 75%;
+  text-align: center;
+}

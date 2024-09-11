@@ -1,0 +1,101 @@
+:root {
+    --color-1: #436986;
+    --color-2: #5d8aa8;
+    --color-3: #1c7373;
+    --color-4: #005757;
+    --color-5: #1f8aaa;
+    --color-6: #2faac8;
+    --color-7: #ed4909;
+    --color-8: #fc6313;
+    --color-fondo: #e8ecf0;
+    --color-complementario-I : #ce1d49;
+    --color-complementario-II : #f24164;
+    --color-blanco: #fff;
+    --color-negro: #000;
+}
+
+.bgColorFondo{
+    background-color: var(--color-fondo) !important;
+}
+
+.bgColorPrincipal {
+    background-color: var(--color-1) !important;
+}
+
+.bgColorOpuesto {
+    background-color: var(--color-complementario-I) !important;
+}
+
+.btnPersonalized1 {
+    background-color: var(--color-complementario-I) !important;
+    color: var(--color-blanco) !important;
+}
+
+.btnPersonalized1:hover {
+    background-color: var(--color-complementario-II) !important;
+    color: var(--color-blanco) !important;
+}
+
+.btnPersonalized1:disabled {
+    background-color: #d3d3d3 !important;
+    color: #a9a9a9 !important;
+    cursor: not-allowed !important;
+}
+
+.btnPersonalized2 {
+    background-color: var(--color-5) !important;
+    color: var(--color-blanco) !important;
+}
+
+.btnPersonalized2:hover {
+    background-color: var(--color-6) !important;
+    color: var(--color-blanco) !important;
+}
+
+.btnPersonalized2:disabled {
+    background-color: #d3d3d3 !important;
+    color: #a9a9a9 !important;
+    cursor: not-allowed !important;
+}
+
+.btnPersonalized3 {
+    background-color: var(--color-7) !important;
+    color: var(--color-blanco) !important;
+}
+
+.btnPersonalized3:hover {
+    background-color: var(--color-8) !important;
+    color: var(--color-blanco) !important;
+}
+
+.btnPersonalized3:disabled {
+    background-color: #d3d3d3 !important;
+    color: #a9a9a9 !important;
+    cursor: not-allowed !important;
+}
+
+.btnPersonalized4 {
+    background-color: var(--color-1) !important;
+    color: var(--color-blanco) !important;
+}
+
+.btnPersonalized4:hover {
+    background-color: var(--color-2) !important;
+    color: var(--color-blanco) !important;
+}
+
+.btnPersonalized4:disabled {
+    background-color: #d3d3d3 !important;
+    color: #a9a9a9 !important;
+    cursor: not-allowed !important;
+}
+
+
+.bgInput {
+    border: 1.8px solid var(--color-2) !important;
+}
+
+.bgInput:focus {
+    border: 2px solid var(--color-2) !important;
+    box-shadow: 0 0 0 0.2rem var(--color-2) !important;
+}

@@ -1,10 +1,10 @@
+import React from 'react'
+import BannerAdminView from '../components/BannerAdminView'
+
 const AdministradorPage = () => {
-    return (
-        <>
-            <h1>ADMINISTRADOR PAGE</h1>
-        </>
-    );
+  return (
+    <BannerAdminView/>
+  )
 }
 
-export default AdministradorPage;
-
+export default AdministradorPage

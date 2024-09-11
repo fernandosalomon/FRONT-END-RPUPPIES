@@ -1,8 +1,9 @@
+import Error404 from "../components/Error404";
 
 const Error404Page = () => {
     return (
         <>
-            <h1>ERROR 404 PAGE</h1>
+            <Error404/>
         </>
     );
 }

@@ -1,0 +1,91 @@
+.nuestrosProfesionales{
+    width: 100%;
+    padding: 10px 20px;
+    margin: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.nuestrosProfesionales .contenedorTitulo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.contenedorTitulo .tituloProfe{
+    text-transform: uppercase;
+}
+
+.nuestrosProfesionales .contenedorCardsVet{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.contenedorCardsVet .cardVeterinario {
+    background-color: var(--color-blanco);
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px 10px;
+    margin: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(1);
+}
+
+.contenedorCardsVet .cardVeterinario:hover {
+    background-color: var(--color-1);
+    transform: scale(1.05);
+}
+
+.contenedorCardsVet .cardVeterinario:hover .nombreVeterinario,
+.contenedorCardsVet .cardVeterinario:hover .matriculaVet {
+    color: var(--color-blanco);
+    transition: color 0.3s ease;
+}
+
+.cardVeterinario .imagenVet{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    aspect-ratio: 16/9;
+}
+
+.cardVeterinario .nombreVeterinario{
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.cardVeterinario .matriculaVet{
+    margin: 5px 0px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+@media (max-width:700px){
+    .contenedorTitulo .tituloProfe{
+        font-size: 1.2rem;
+    }
+
+    .contenedorCardsVet .cardVeterinario {
+        width: 250px;
+        height: 275px;
+    }
+
+    .cardVeterinario .imagenVet{
+        width: 120px;
+        height: 120px;
+    }
+}
