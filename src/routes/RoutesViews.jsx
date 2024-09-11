@@ -32,12 +32,7 @@ const RoutesViews = () => {
     <>
       <NavbarC />
       <Routes>
-        <Route path="/administrador/pets" element={<AdministradorPets />} />
-        <Route path="/administrador/services" element={<AdministradorServices />} />
-        <Route path="/administrador/turnos" element={<AdministradorTurnos />} />
         <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
-        <Route path="/mismascotas" element={<MisMascotasPage />} />
-        <Route path="/administrador" element={<AdministradorPage />} />
         {isAdmin ? (
           <Route path="/administrador/*" element={<AdminRoutes />} />
         ) : (
