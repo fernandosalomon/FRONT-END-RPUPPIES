@@ -50,7 +50,7 @@ const RoutesViews = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Error404Page />} />
       </Routes>
-      {location.pathname !== "/" && <FooterC />}
+      {location.pathname !== "/" && <FooterC isLogged={isLogged} />}
     </>
   );
 };

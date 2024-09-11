@@ -35,7 +35,6 @@ const NuestrosPlanesC = () => {
 
   useEffect(() => {
     setListaPlanes(planesDisponibles);
-    console.log(listaPlanes);
   }, []);
 
   return (

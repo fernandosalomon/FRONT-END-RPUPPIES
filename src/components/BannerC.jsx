@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import "../css/BannerC.css";
+import { Button } from "react-bootstrap";
 
 const BannerC = () => {
   return (
@@ -12,7 +14,9 @@ const BannerC = () => {
               cuidado posible.
             </p>
             <div className="banner-btn">
-              <button className="btn-1">Saber más</button>
+              <Button className="btn-1" as={Link} to="/acerca-nosotros">
+                Saber más
+              </Button>
             </div>
           </div>
         </div>

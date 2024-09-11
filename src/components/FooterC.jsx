@@ -4,29 +4,34 @@ import { Link } from "react-router-dom";
 import "../css/FooterC.css";
 
 //PARA EL MODAL: PONERLO DONDE CORRESPONDA
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "../css/ModalTurnos.css";
 
-const FooterC = () => {
+const FooterC = ({ isLogged }) => {
+  const [isUserLogged, setIsUserLogged] = useState(null);
   //PARA EL MODAL: PONERLO DONDE CORRESPONDA
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  useEffect(() => {
+    setIsUserLogged(isLogged);
+  }, [isLogged]);
+
   return (
     <>
-      <Container fluid className="pt-4 bg-color-principal">
+      <Container fluid className="mt-auto pt-3 bgColorPrincipal">
         <Row>
           <Col
             xs={12}
             md={12}
             lg={3}
             xl={2}
-            className="d-flex justify-content-end justify-content-sm-center align-items-center p-0"
+            className="d-flex justify-content-lg-end justify-content-center align-items-center p-0"
           >
             <Image src={imgLogo} className="logo--img__footer" />
           </Col>
@@ -35,45 +40,85 @@ const FooterC = () => {
             md={8}
             lg={5}
             xl={5}
-            className="ps-5 mb-4 p-0 d-flex gap-2"
+            className="ps-5 p-0 d-flex gap-5 pb-3 justify-content-center"
           >
-            <div>
-              <h3 className="ms-3 text-white">Servicios</h3>
-              <ul className="list-group">
+            <div className="d-flex flex-column align-items-center">
+              <h3 className="text-white">Servicios</h3>
+              <ul className="list-group d-flex flex-column align-items-center">
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">Castración</Link>
-                </li>
-                <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">
-                    Higiene y cuidados
+                  <Link
+                    className="nav-link text-white"
+                    to="/servicios/consultorio"
+                  >
+                    Consultorio
                   </Link>
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">Algo</Link>
+                  <Link
+                    className="nav-link text-white"
+                    to="/servicios/internacion"
+                  >
+                    Internación
+                  </Link>
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">Algo más</Link>
+                  <Link
+                    className="nav-link text-white"
+                    to="/servicios/laboratorio"
+                  >
+                    Laboratorio
+                  </Link>
+                </li>
+                <li className="list-group-item border-0 bg-transparent">
+                  <Link
+                    className="nav-link text-white"
+                    to="/servicios/imagenologia"
+                  >
+                    Imagenología
+                  </Link>
+                </li>
+                <li className="list-group-item border-0 bg-transparent">
+                  <Link className="nav-link text-white" to="/servicios/cirugia">
+                    Cirugias
+                  </Link>
+                </li>
+                <li className="list-group-item border-0 bg-transparent">
+                  <Link
+                    className="nav-link text-white"
+                    to="/servicios/microchip"
+                  >
+                    Microchip
+                  </Link>
+                </li>
+                <li className="list-group-item border-0 bg-transparent">
+                  <Link className="nav-link text-white" to="/servicios/guardia">
+                    Guardia
+                  </Link>
                 </li>
               </ul>
             </div>
-            <div>
-              <h3 className="ms-3 text-white">Información</h3>
-              <ul className="list-group">
+            <div className="d-flex flex-column align-items-center">
+              <h3 className="text-white">Información</h3>
+              <ul className="list-group  d-flex flex-column align-items-center">
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">
+                  <Link className="nav-link text-white" to="/acerca-nosotros">
                     Acerca de nosotros
                   </Link>
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">
+                  <Link className="nav-link text-white" to="/trabaja-nosotros">
                     Trabaja con nosotros
                   </Link>
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">Adopciones</Link>
+                  <Link className="nav-link text-white" to="/adopciones">
+                    Adopciones
+                  </Link>
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
-                  <Link className="nav-link text-white">Blog</Link>
+                  <Link className="nav-link text-white" to="/blog">
+                    Blog
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -83,7 +128,7 @@ const FooterC = () => {
             md={4}
             lg={4}
             xl={5}
-            className="mb-4 p-0 d-flex align-items-center justify-content-center gap-3"
+            className="p-0 d-flex justify-content-center gap-3"
           >
             <div className="map--container__footer">
               <iframe
@@ -95,7 +140,7 @@ const FooterC = () => {
               ></iframe>
             </div>
             <div>
-              <div className="d-flex flex-column gap-1 mt-4 mb-3">
+              <div className="d-flex flex-column gap-1 mt-2 mb-3 ms-2">
                 <div className="direccion d-flex align-items-baseline gap-2">
                   <i className="bi bi-geo-alt-fill fs-4 text-white"></i>
                   <p className="fs-5 m-0 text-white">Calle Falsa 123</p>
@@ -109,9 +154,11 @@ const FooterC = () => {
                   <p className="fs-5 m-0 text-white">8:00 a 20:00</p>
                 </div>
                 <div className="mt-3">
-                  <button className="btn-1" onClick={handleShow}>
-                    Reservar Turno
-                  </button>
+                  {isUserLogged && (
+                    <Button className="btn-1" onClick={handleShow}>
+                      Reservar Turno
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
@@ -119,27 +166,27 @@ const FooterC = () => {
           <Col lg={12} className="border-top border-3 py-3 bg-offwhite">
             <Container fluid className="mx-lg-0 d-flex flex-wrap">
               <div className="bottom--info__footer">
-                <p className="fs-5 m-0 ms-sm-2 text-center text-sm-start">
+                <p className="m-0 ms-sm-2 text-center text-sm-start">
                   Todos los derechos reservados
                 </p>
-                <p className="fs-5 m-0 ms-sm-2 text-center text-sm-start">
+                <p className="m-0 ms-sm-2 text-center text-sm-start">
                   @Comunidad-RollingPuppies
                 </p>
               </div>
               <div className="flex-grow-1 d-flex align-items-center gap-3 justify-content-sm-end justify-content-center">
-                <p className="fs-2 fw-bold m-0">Seguinos</p>
+                <p className="fs-4 fw-bold m-0">Seguinos</p>
                 <div className="social d-flex justify-content-start gap-3 ">
                   <Link to="https://facebook.com" className="nav-link">
-                    <i className="bi bi-facebook fs-2"></i>
+                    <i className="bi bi-facebook fs-5"></i>
                   </Link>
                   <Link to="https://x.com" className="nav-link">
-                    <i className="bi bi-twitter-x fs-2"></i>
+                    <i className="bi bi-twitter-x fs-5"></i>
                   </Link>
                   <Link to="https://instagram.com" className="nav-link">
-                    <i className="bi bi-instagram fs-2"></i>
+                    <i className="bi bi-instagram fs-5"></i>
                   </Link>
                   <Link to="https://youtube.com" className="nav-link">
-                    <i className="bi bi-youtube fs-2"></i>
+                    <i className="bi bi-youtube fs-5"></i>
                   </Link>
                 </div>
               </div>
@@ -149,10 +196,14 @@ const FooterC = () => {
       </Container>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton className="bg-color-principal text-white">
+        <Modal.Header
+          closeButton
+          closeVariant="white"
+          className="bgColorPrincipal text-white"
+        >
           <Modal.Title>Editar/Agregar Turno</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="bg-color-fondo">
+        <Modal.Body className="bgColorFondo">
           <Form>
             <Container>
               <Row className="align-items-center">
