@@ -17,11 +17,21 @@ const RoutesViews = () => {
     <>
       <NavbarC />
       <Routes>
-        <Route path="/administrador/pets" element={<AdministradorPets />} />
-        <Route path="/administrador/services" element={<AdministradorServices />} />  
-        <Route path="/administrador/turnos" element={<AdministradorTurnos />} />
-        <Route path="/mismascotas" element={<MisMascotasPage />} />
-        <Route path="/administrador" element={<AdministradorPage />} />
+
+        <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
+        {isAdmin ? (
+          <Route path="/administrador/*" element={<AdminRoutes />} />
+        ) : (
+          <Route path="/error" element={<Error404Page />} />
+        )}
+        {isLogged ? (
+          <Route path="/*" element={<LoggedRoutes />} />
+        ) : (
+          <Route path="/error" element={<Error404Page />} />
+        )}
+
+        <Route path="/nuestrosplanes" element={<NuestrosPlanesPage />} />
+
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Error404Page />} />
       </Routes>
