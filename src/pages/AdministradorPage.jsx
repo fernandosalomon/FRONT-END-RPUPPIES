@@ -2,9 +2,12 @@ import React from 'react'
 import BannerAdminView from '../components/BannerAdminView'
 
 const AdministradorPage = () => {
+ 
   return (
-    <BannerAdminView/>
-  )
-}
+    <main className="flex-grow-1">
+      <BannerAdminView />
+    </main>
+  );
+};
 
-export default AdministradorPage
+export default AdministradorPage;

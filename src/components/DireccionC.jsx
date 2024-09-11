@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const DireccionC = () => {
   return (
     <>
-      <Container fluid className="bg-color-fondo p-0">
+      <Container fluid className="bgColorPrincipal p-0" data-aos="fade-down">
         <Row className="p-0">
           <Col xs={{ span: 12, order: 2 }} md={{ span: 7, order: 1 }}>
             <iframe
@@ -15,31 +15,33 @@ const DireccionC = () => {
             ></iframe>
           </Col>
           <Col xs={{ span: 12, order: 0 }} md={{ span: 5, order: 2 }}>
-            <h2 className="fs-1 text-center mt-3">Rolling Puppies</h2>
+            <h2 className="fs-1 text-center mt-3 text-white">
+              Rolling Puppies
+            </h2>
             <div className="social d-flex justify-content-center gap-3">
-              <Link to="https://facebook.com" className="nav-link">
+              <Link to="https://facebook.com" className="nav-link text-white">
                 <i className="bi bi-facebook fs-2"></i>
               </Link>
-              <Link to="https://x.com" className="nav-link">
+              <Link to="https://x.com" className="nav-link text-white">
                 <i className="bi bi-twitter-x fs-2"></i>
               </Link>
-              <Link to="https://instagram.com" className="nav-link">
+              <Link to="https://instagram.com" className="nav-link text-white">
                 <i className="bi bi-instagram fs-2"></i>
               </Link>
-              <Link to="https://youtube.com" className="nav-link">
+              <Link to="https://youtube.com" className="nav-link text-white">
                 <i className="bi bi-youtube fs-2"></i>
               </Link>
             </div>
             <div className="d-flex flex-column gap-1 mt-4 ms-4 mb-3">
-              <div className="direccion d-flex align-items-baseline gap-2">
+              <div className="direccion d-flex align-items-baseline gap-2 text-white">
                 <i className="bi bi-geo-alt-fill fs-4"></i>
                 <p className="fs-5 m-0">Calle Falsa 123</p>
               </div>
-              <div className="telefono d-flex align-items-baseline gap-2">
+              <div className="telefono d-flex align-items-baseline gap-2 text-white">
                 <i className="bi bi-telephone-fill fs-4"></i>
                 <p className="fs-5 m-0">555-123425</p>
               </div>
-              <div className="direccion d-flex align-items-baseline gap-2">
+              <div className="direccion d-flex align-items-baseline gap-2 text-white">
                 <i className="bi bi bi-clock-fill fs-4"></i>
                 <p className="fs-5 m-0">8:00 a 20:00</p>
               </div>

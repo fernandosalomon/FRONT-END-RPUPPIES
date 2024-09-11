@@ -1,0 +1,176 @@
+.desarrolladores{
+    width: 100%;
+    padding: 10px 20px;
+    margin: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.desarrolladores .desarrolladoresTitulo{
+    margin-bottom: 10px;
+}
+
+.desarrolladores .desarrolladoresTitulo h3{
+    text-transform: uppercase;
+}
+
+.desarrolladores .contenedorDesarrolladores{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contenedorDesarrolladores .cardDesarrolador{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background-color: var(--color-blanco);
+    border-radius: 10px;
+    overflow: hidden;
+    align-self: normal;
+    margin: 20px 10px;
+    box-shadow: 1px -1px 16px 1px rgba(0,0,0,0.76);
+    -webkit-box-shadow: 1px -1px 16px 1px rgba(0,0,0,0.76);
+    -moz-box-shadow: 1px -1px 16px 1px rgba(0,0,0,0.76);
+}
+
+.contenedorDesarrolladores .cardDesarrolador:hover{
+    transform: scale(1.05);
+    transition: 0.5s linear;
+}
+
+.cardDesarrolador .headCardDesarrolador{
+    width: 100%;
+    height: 150px;
+    position: relative;
+}
+
+.cardDesarrolador .headCardDesarrolador .circuloHead{
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    border-radius: 50%;
+    background-color: var(--color-4);
+    bottom: 0;
+}
+
+.cardDesarrolador .headCardDesarrolador .contenedorImg{
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    background-color: var(--color-blanco);
+    padding: 5px;
+    border-radius: 50%;
+    bottom: -30%;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.contenedorImg .imgDesarrollador{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.cardDesarrolador .descripcionDev{
+    display: flex;
+    flex-direction: column;
+    padding: 60px 20px 5px 20px;
+    text-align: center;
+}
+
+.cardDesarrolador .descripcionDev h3{
+    font-size: 1.6rem;
+    margin: 5px 0px;
+}
+
+.cardDesarrolador .descripcionDev h4{
+    font-size: 1.2rem;
+    margin: 5px 0px;
+}
+
+.cardDesarrolador .descripcionDev p{
+    font-size: 1rem;
+    margin: 10px 0px;
+    font-family: 'Heebo', sans-serif;
+}
+
+.cardDesarrolador .redesDev{
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px 20px 20px 20px;
+}
+
+.cardDesarrolador .redesDev .linkDev{
+    text-decoration: none;
+    font-size: 1.8rem;
+    padding: 3px 11px;
+    border-radius: 50%;
+    background-color: var(--color-4);
+    color: var(--color-blanco);
+    cursor: pointer;
+}
+
+.cardDesarrolador .redesDev .linkDev:hover{
+    background-color: var(--color-3);
+    transition: 0.2s linear;
+}
+
+@media (max-width:800px){
+    .contenedorDesarrolladores .cardDesarrollador{
+        width: 250px;
+        height: 400px;
+        margin: 10px 20px;
+    }
+}
+
+@media (max-width:650px){
+    .desarrolladores{
+        width: 100%;
+        padding: 10px 0px;
+    }
+
+    .contenedorDesarrolladores .cardDesarrollador{
+        width: 200px;
+        height: 400px;
+    }
+}
+
+@media (max-width:480px){
+    .contenedorDesarrolladores .cardDesarrollador{
+        width: 80%;
+        height: 350px;
+    }
+}
+
+@media screen and (max-width: 445px) {
+    .cardDesarrolador .headCardDesarrolador .circuloHead{
+        border-radius: 0;
+    }
+
+    .cardDesarrolador .descripcionDev h3{
+        font-size: 1.2rem;
+    }
+
+    .cardDesarrolador .descripcionDev h4{
+        font-size: 1rem;
+    }
+
+    .cardDesarrolador .descripcionDev p{
+        font-size: 0.8rem;
+    }
+
+    .cardDesarrolador .redesDev{
+        justify-content: space-between;
+    }
+
+    .cardDesarrolador .redesDev .linkDev{
+        font-size: 1.5rem;
+    }
+}

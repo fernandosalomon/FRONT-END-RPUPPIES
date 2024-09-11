@@ -1,22 +1,24 @@
 import BannerC from "../components/BannerC";
+import Bienvenidad from "../components/Bienvenidad";
 import DireccionC from "../components/DireccionC";
-import NuestrosPlanesC from "../components/NuestrosPlanesC";
-import TestimonialsC from "../components/TestimonialsC";
 import NuestrasMarcas from "../components/NuestrasMarcas";
-import NuestrosProfesionales from "../components/nuestrosProfesionales";
+import NuestrosPlanesC from "../components/NuestrosPlanesC";
+import NuestrosProfesionales from "../components/NuestrosProfesionales";
 import NuestrosServicios from "../components/NuestrosServicios";
+import PubliPeluqueria from "../components/PubliPeluqueria";
 
 const HomePage = () => {
   return (
-    <>
+    <main className="flex-grow-1 main-container">
       <BannerC />
-      <TestimonialsC />
-      <NuestrosServicios/>
+      <Bienvenidad />
+      <NuestrasMarcas />
+      <NuestrosServicios />
       <NuestrosPlanesC />
-      <NuestrasMarcas/>
-      <NuestrosProfesionales/>
+      <NuestrosProfesionales />
+      <PubliPeluqueria />
       <DireccionC />
-    </>
+    </main>
   );
 };
 

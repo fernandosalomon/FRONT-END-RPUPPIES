@@ -1,0 +1,35 @@
+.bienvenidad{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px 0px;
+}
+
+.bienvenidad .tituloBienvenida{
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.bienvenidad .cardDescripcion{
+    width: 850px;
+    margin: 20px 10px;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-blanco);
+    box-shadow: 2px 3px 5px rgba(73, 69, 52, 0.4);
+}
+
+.cardDescripcion .descripcion{
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+@media (max-width:700px) {
+    .bienvenidad .cardDescripcion{
+        width: 90%;
+    }
+}
