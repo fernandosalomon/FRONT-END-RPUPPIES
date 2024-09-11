@@ -1,9 +1,6 @@
 export const usePageTitle = (route) => {
-  switch (route) {
-    case "/":
-      document.title = "RollingPuppies";
-      break;
-    default:
-      document.title = "Error";
-  }
+  route === "/"
+    ? (document.title = "RollingPuppies")
+    : (document.title =
+        route.split("/")[route.split("/").length - 1] + " - RollingPuppies");
 };

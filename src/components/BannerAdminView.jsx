@@ -19,9 +19,9 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
         const usuariosResponse = await clienteAxios.get("/usuarios");
         setUsuarios(usuariosResponse.data);
 
-        const mascotasResponse = await clienteAxios.get("/mascotas");
+        const mascotasResponse = await clienteAxios.get("/mascotas/all/");
         setMascotas(mascotasResponse.data);
-        setMascotasFiltradas(mascotasResponse.data); 
+        setMascotasFiltradas(mascotasResponse.data);
       } catch (error) {
         console.error("Error al obtener usuarios o mascotas:", error);
       }
@@ -34,19 +34,15 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
     const usuarioId = e.target.value;
     setSelectedUsuario(usuarioId);
     setSelectedMascota("");
-  
 
     const usuario = usuarios.find((usuario) => usuario._id === usuarioId);
-  
 
     if (usuario && Array.isArray(usuario.mascotas)) {
-
       const mascotasDeUsuario = mascotas.filter((mascota) =>
         usuario.mascotas.includes(mascota._id)
       );
       setMascotasFiltradas(mascotasDeUsuario);
     } else {
-
       setMascotasFiltradas(mascotas);
     }
   };
@@ -58,7 +54,7 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
     hora: "",
     mascota: "",
     veterinario: "",
-    usuario: ""
+    usuario: "",
   });
 
   useEffect(() => {
@@ -83,7 +79,7 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
         hora: "",
         mascota: "",
         veterinario: "",
-        usuario: ""
+        usuario: "",
       });
     }
     setShow(true);
@@ -149,7 +145,24 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
 
   const [turnosAsignados, setTurnosAsignados] = useState({});
 
-  const horarios = ['10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30'];
+  const horarios = [
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+  ];
 
   const obtenerHorariosDisponibles = () => {
     if (!selectedTurno.fecha || !selectedTurno.veterinario) {
@@ -232,7 +245,9 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
       </div>
       <Modal onHide={handleClose} show={show}>
         <Modal.Header closeButton className="bgColorPrincipal text-white">
-          <Modal.Title>{selectedTurno._id ? "Editar Turno" : "Crear Turno"}</Modal.Title>
+          <Modal.Title>
+            {selectedTurno._id ? "Editar Turno" : "Crear Turno"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body className="bgColorFondo">
           <Form onSubmit={handleSubmit}>
@@ -254,7 +269,6 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
                 </Col>
                 <Col xs={12} md={6}>
                   <Form.Group className="mb-3" controlId="horaTurno">
-                   
                     <Form.Label>Hora</Form.Label>
                     <Form.Select
                       value={selectedTurno.hora}
@@ -292,7 +306,6 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
                   <Form.Group className="mb-3" controlId="usuarioSelect">
                     <Form.Label>Usuario</Form.Label>
                     <Form.Select
-
                       onChange={handleUsuarioChange}
                       name="usuario"
                       required
@@ -343,5 +356,3 @@ const BannerAdminView = ({ turnos, setTurnos }) => {
 };
 
 export default BannerAdminView;
-
-

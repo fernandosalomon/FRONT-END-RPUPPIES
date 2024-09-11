@@ -26,6 +26,10 @@ const RoutesViews = () => {
   );
 
   useEffect(() => {
+    userRol === "admin" && setIsAdmin(true);
+  }, [userRol]);
+
+  useEffect(() => {
     if (sessionStorage.getItem("userRole")) {
       setUserRol(sessionStorage.getItem("userRole"));
       userRol === "admin" && setIsAdmin(true);
@@ -53,7 +57,7 @@ const RoutesViews = () => {
         {isLogged ? (
           <Route path="/*" element={<LoggedRoutes />} />
         ) : (
-          <Route path="/error" element={<Error404Page />} />
+          <Route path="/error404" element={<Error404Page />} />
         )}
 
         <Route path="/nuestros-planes" element={<NuestrosPlanesPage />} />

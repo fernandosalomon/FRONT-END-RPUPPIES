@@ -5,7 +5,7 @@ const LoggedRoutes = () => {
   return (
     <Routes>
       <Route path="/mismascotas" element={<MisMascotasPage />} />
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to="/error404" replace />} />
     </Routes>
   );
 };

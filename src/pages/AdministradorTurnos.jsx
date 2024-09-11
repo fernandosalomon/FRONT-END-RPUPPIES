@@ -11,15 +11,17 @@ const AdministradorTurnos = () => {
   const traerTurnos = async () => {
     try {
       const turnosResponse = await clienteAxios.get("/turnos");
-      const mascotasResponse = await clienteAxios.get(`/mascotas`);
-      
+      const mascotasResponse = await clienteAxios.get(`/mascotas/all/`);
+
       const turnosData = turnosResponse.data;
       const mascotasData = mascotasResponse.data;
-                
+
       const mapaMascotas = crearMapaMascotas(mascotasData);
 
-
-      const turnosFinales = agregarPropiedadNombreMascota(turnosData, mapaMascotas);
+      const turnosFinales = agregarPropiedadNombreMascota(
+        turnosData,
+        mapaMascotas
+      );
 
       setTurnos(turnosData);
       setMascotas(mascotasData);
@@ -29,18 +31,16 @@ const AdministradorTurnos = () => {
     }
   };
 
-
   const crearMapaMascotas = (mascotas) => {
     return new Map(mascotas.map((mascota) => [mascota._id, mascota.nombre]));
   };
 
- 
   const agregarPropiedadNombreMascota = (turnos, mapaMascotas) => {
     return turnos.map((turno) => {
-      const nombreMascota = mapaMascotas.get(turno.mascota); 
+      const nombreMascota = mapaMascotas.get(turno.mascota);
       return {
         ...turno,
-        nombreMascota: nombreMascota || "Mascota fuera de la DB" 
+        nombreMascota: nombreMascota || "Mascota fuera de la DB",
       };
     });
   };
@@ -52,7 +52,7 @@ const AdministradorTurnos = () => {
   return (
     <>
       <div>
-        <BannerAdminView turnos={turnosFinales} setTurnos={setTurnosFinales}/>
+        <BannerAdminView turnos={turnosFinales} setTurnos={setTurnosFinales} />
       </div>
       <div className="container text-align fontPage">
         <h1 className="text-center my-4">Tabla de Turnos</h1>
