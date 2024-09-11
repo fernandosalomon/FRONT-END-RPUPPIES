@@ -19,7 +19,7 @@ Tanto el sitio como el servidor se deben ejecutar con el paquete npm de NodeJS. 
 
 La página se encuentra subida al servidor de Netlify:
 
-[https://...](https://front-end-rpuppies.vercel.app/)
+https://front-end-rpuppies.vercel.app/
 
 ## Contribución o duda
 
