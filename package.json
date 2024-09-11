@@ -30,13 +30,10 @@
     "react-router-dom": "^6.26.1",
     "react-time-picker": "^7.0.0",
     "styled-components": "^6.1.12",
-
+    "react-hook-form": "^7.53.0",
     "sweetalert2": "^11.6.13",
     "swiper": "^11.1.11",
-
     "zod": "^3.23.8"
-
-
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
