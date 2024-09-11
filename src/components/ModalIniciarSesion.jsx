@@ -6,8 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function ModalIniciarSesion({ show, handleClose }) {
+  const [userRol, setUserRol] = useState("");
   const navigate = useNavigate();
   const client = axios.create({
     baseURL: "http://localhost:3001/api/usuarios",
@@ -33,6 +35,7 @@ function ModalIniciarSesion({ show, handleClose }) {
   const onSubmit = async (e) => {
     try {
       const response = await client.post("/login", e);
+      console.log(response);
       if (response.data.token) {
         Swal.fire({
           title: "Bienvenido",
@@ -44,7 +47,13 @@ function ModalIniciarSesion({ show, handleClose }) {
         sessionStorage.setItem("userToken", response.data.token);
         sessionStorage.setItem("userRole", response.data.rol);
         handleClose();
-        navigate(0);
+        setTimeout(() => {
+          if (userRol === "admin") {
+            navigate("/administrador");
+          } else {
+            navigate("/");
+          }
+        });
       } else {
         Swal.fire({
           title: "Algo salio mal",
@@ -56,6 +65,10 @@ function ModalIniciarSesion({ show, handleClose }) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    setUserRol(sessionStorage.getItem("userRole"));
+  }, []);
 
   return (
     <Modal show={show} onHide={handleClose} centered>
@@ -139,6 +152,5 @@ function ModalIniciarSesion({ show, handleClose }) {
     </Modal>
   );
 }
-
 
 export default ModalIniciarSesion;

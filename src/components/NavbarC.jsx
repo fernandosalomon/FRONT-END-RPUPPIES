@@ -41,6 +41,7 @@ const NavbarC = () => {
     if (userToken) {
       setUserLogged(true);
     }
+    console.log(userLogged, userRole);
   }, [userLogged, userRole]);
 
   const handleCloseSession = () => {
@@ -61,10 +62,7 @@ const NavbarC = () => {
 
   return (
     <>
-      <Navbar
-        expand="lg"
-        className="bgColorPrincipal text-poppins p-0"
-      >
+      <Navbar expand="lg" className="bgColorPrincipal text-poppins p-0">
         <Container fluid className="p-0">
           <Navbar.Brand>
             <Link to="/" className="ms-2">
@@ -79,10 +77,16 @@ const NavbarC = () => {
             {userRole === "admin" ? (
               <>
                 <Nav className="me-auto d-flex gap-4">
-                  <Link className="nav-link fw-medium text-white" to="/administrador/usuarios">
+                  <Link
+                    className="nav-link fw-medium text-white"
+                    to="/administrador/usuarios"
+                  >
                     Usuarios
                   </Link>
-                  <Link className="nav-link fw-medium text-white" to="/administrador/turnos">
+                  <Link
+                    className="nav-link fw-medium text-white"
+                    to="/administrador/turnos"
+                  >
                     Administrar Turnos
                   </Link>
                 </Nav>
@@ -113,21 +117,18 @@ const NavbarC = () => {
             )}
 
             <Nav className="ms-auto">
-              {userLogged && (
-                <>
+              {userLogged ? (
+                <div className="d-flex align-items-center me-5">
                   <Link to="#" className="nav-link">
                     <i className="bi bi-bag fs-1 me-2 text-white"></i>
                   </Link>
                   <Link to="#" className="nav-link">
                     <i className="bi bi-calendar-event fs-1 me-2 text-white"></i>
                   </Link>
-                </>
-              )}
-              {userLogged ? (
-                <>
-                  <Dropdown>
+
+                  <Dropdown className="ms-2">
                     <Dropdown.Toggle
-                      className="bg-transparent border-0 "
+                      className="bg-transparent border-0 p-0"
                       id="userOptions-dropdown"
                     >
                       <i className="bi bi-person-circle fs-1 me-2 text-white"></i>
@@ -145,7 +146,10 @@ const NavbarC = () => {
                         </button>
                       </Dropdown.Item>
                       <Dropdown.Item>
-                        <Link className="text-decoration-none text-white fw-3">
+                        <Link
+                          className="text-decoration-none text-white fw-3"
+                          to="/mismascotas"
+                        >
                           Mis mascotas
                         </Link>
                       </Dropdown.Item>
@@ -160,10 +164,10 @@ const NavbarC = () => {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                </>
+                </div>
               ) : (
                 <>
-                  <div className="d-flex gap-2 justify-content-center py-3">
+                  <div className="d-flex gap-2 justify-content-center py-3 me-3">
                     <button
                       className="btn-1"
                       onClick={handleOpenModalIniciarSesion}
