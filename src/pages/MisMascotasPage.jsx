@@ -1,7 +1,9 @@
+import axios from "axios";
 import MisMascotas from "../components/MisMascotas";
+import PubliPeluqueria from "../components/PubliPeluqueria";
+import { useEffect, useState } from "react";
 
 const MisMascotasPage = () => {
-
   const [mascotas, setMascotas] = useState([]);
 
   const client = axios.create({
@@ -15,7 +17,7 @@ const MisMascotasPage = () => {
           auth: sessionStorage.getItem("userToken"),
         },
       });
-      setMascotas([mascotasDB.data]);
+      setMascotas(mascotasDB.data);
     } catch (error) {
       console.log(error);
     }
@@ -25,11 +27,6 @@ const MisMascotasPage = () => {
     getMascotas();
   }, []);
 
-  useEffect(() => {
-    const misMascotas = mascotas;
-    console.log(mascotas);
-  }, [mascotas]);
-
   return (
     <main className="flex-grow-1">
       <MisMascotas mascotas={mascotas} />
@@ -37,6 +34,5 @@ const MisMascotasPage = () => {
     </main>
   );
 };
-
 
 export default MisMascotasPage;
