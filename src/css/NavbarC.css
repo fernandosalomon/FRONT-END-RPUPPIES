@@ -46,3 +46,16 @@
 button {
   width: fit-content;
 }
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: var(--color-complementario-I) !important;
+}
+
+.dropdown-menu {
+  padding: 0 !important;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem !important;
+}

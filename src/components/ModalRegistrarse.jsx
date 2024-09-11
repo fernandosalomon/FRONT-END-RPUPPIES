@@ -1,145 +1,259 @@
-import styleGeneral from '../../src/index.module.css';
-import { Modal, Button, Form } from 'react-bootstrap';
+import styleGeneral from "../../src/index.module.css";
+import { Modal, Button, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function ModalRegistrarse({ show, handleClose }) {
-    return (
-        <Modal show={show} onHide={handleClose} centered>
-            <Modal.Header closeButton closeVariant="white" className={styleGeneral.bgColorPrincipal}>
-                <Modal.Title className="text-white">Registrarse</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className={styleGeneral.bgColorFondo}>
-                <Form id="form-registro">
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="emailRegistro" className="fw-bolder">
-                    Email
-                    </Form.Label>
-                    <Form.Control
-                    type="email"
-                    id="emailRegistro"
-                    placeholder="Ingrese su email"
-                    minLength="8"
-                    maxLength="20"
-                    name="Email"
-                    autoComplete="username"
-                    required
-                    className={styleGeneral.bgInput}
-                    aria-describedby="emailHelp"
-                    />
-                    <div id="emailErrorRegistro"></div>
-                </Form.Group>
+  const navigate = useNavigate();
+  const client = axios.create({
+    baseURL: "http://localhost:3001/api/usuarios",
+  });
 
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="nombreRegistro" className="fw-bolder">
-                    Nombre
-                    </Form.Label>
-                    <Form.Control
-                    type="text"
-                    id="nombreRegistro"
-                    placeholder="Ingrese su nombre"
-                    minLength="3"
-                    maxLength="25"
-                    name="Nombre"
-                    required
-                    className={styleGeneral.bgInput}
-                    />
-                    <div id="nombreErrorRegistro"></div>
-                </Form.Group>
+  const registerSchema = z.object({
+    nombre: z
+      .string()
+      .min(1, { message: "Campo Requerido" })
+      .max(25, "Máximo permitido: 25 caracteres"),
+    apellido: z
+      .string()
+      .min(1, { message: "Campo Requerido" })
+      .max(25, "Máximo permitido: 25 caracteres"),
+    email: z
+      .string()
+      .email({ message: "Formato de email incorrecto" })
+      .min(1, { message: "Campo Requerido" }),
+    telefono: z
+      .string()
+      .min(7, { message: "Mínimo requerido: 7 dígitos" })
+      .max(10, { message: "Máximo permitido: 10 dígitos" }),
+    contrasenia: z
+      .string()
+      .min(8, { message: "La contraseña debe contener al menos 8 caracteres" })
+      .max(25, { message: "Máximo permitido: 25 caracteres" }),
+    repetirContrasenia: z.string(),
+  });
 
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="apellidoRegistro" className="fw-bolder">
-                    Apellido
-                    </Form.Label>
-                    <Form.Control
-                    type="text"
-                    id="apellidoRegistro"
-                    placeholder="Ingrese su apellido"
-                    minLength="3"
-                    maxLength="25"
-                    name="Apellido"
-                    required
-                    className={styleGeneral.bgInput}
-                    />
-                    <div id="apellidoErrorRegistro"></div>
-                </Form.Group>
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(registerSchema),
+  });
 
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="telefonoRegistro" className="fw-bolder">
-                    Teléfono
-                    </Form.Label>
-                    <Form.Control
-                    type="tel"
-                    id="telefonoRegistro"
-                    placeholder="Ingresa tu teléfono"
-                    maxLength="10"
-                    pattern="\d{10}"
-                    name="Teléfono"
-                    required
-                    className={styleGeneral.bgInput}
-                    />
-                    <div id="telefonoErrorRegistro"></div>
-                </Form.Group>
+  const onSubmit = async (e) => {
+    if (e.contrasenia === e.repetirContrasenia) {
+      try {
+        const { repetirContrasenia, ...userData } = e;
+        const response = await client.post("/", userData);
+        console.log(response);
 
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="passwordRegistro" className="fw-bolder">
-                    Contraseña
-                    </Form.Label>
-                    <Form.Control
-                    type="password"
-                    id="passwordRegistro"
-                    placeholder="Ingrese su contraseña"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-                    title="Debe contener al menos un número, una letra mayúscula, una minúscula, y al menos 8 caracteres"
-                    maxLength="20"
-                    minLength="8"
-                    autoComplete="new-password"
-                    name="Contraseña"
-                    required
-                    className={styleGeneral.bgInput}
-                    />
-                    <div id="passwordErrorRegistro"></div>
-                </Form.Group>
+        Swal.fire({
+          title: "Usuario creado con exito",
+          text: "Te hemos enviado un mail de bienvenida",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        sessionStorage.setItem("userToken", response.data.token);
+        sessionStorage.setItem("userRole", response.data.rol);
+        handleClose();
+        setTimeout(() => {
+          navigate(0);
+        }, 1000);
+      } catch (error) {
+        setError("root", {
+          message: "ERROR",
+        });
+      }
+    }
+  };
 
-                <Form.Group className="mb-3">
-                    <Form.Label htmlFor="passwordRegistroRepetir" className="fw-bolder">
-                    Repetir contraseña
-                    </Form.Label>
-                    <Form.Control
-                    type="password"
-                    id="passwordRegistroRepetir"
-                    placeholder="Repita su contraseña"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-                    title="Debe contener al menos un número, una letra mayúscula, una minúscula, y al menos 8 caracteres"
-                    maxLength="20"
-                    minLength="8"
-                    autoComplete="new-password"
-                    name="Contraseña repetir"
-                    required
-                    className={styleGeneral.bgInput}
-                    />
-                    <div id="passwordRepetirErrorRegistro"></div>
-                </Form.Group>
-
-                <div className="d-flex align-items-center justify-content-center">
-                    <Button
-                    type="submit"
-                    id="botonRegistrarse"
-                    className={`${styleGeneral.btnPersonalized2} mx-1 fw-bold`}
-                    aria-label="Registrarse"
-                    >
-                    Registrarse
-                    </Button>
-                    <Button
-                    type="reset"
-                    className={`${styleGeneral.btnPersonalized1} mx-1 fw-bold`}
-                    aria-label="Cancelar"
-                    >
-                    Cancelar
-                    </Button>
+  return (
+    <Modal
+      show={show}
+      onHide={() => {
+        handleClose();
+        reset();
+      }}
+      centered
+    >
+      <Modal.Header
+        closeButton
+        closeVariant="white"
+        className="bgColorPrincipal"
+      >
+        <Modal.Title className="text-white">Registrarse</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className={styleGeneral.bgColorFondo}>
+        <Form id="form-registro" onSubmit={handleSubmit(onSubmit)}>
+          <div className="d-flex gap-3">
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="nombreRegistro" className="fw-bolder">
+                Nombre
+              </Form.Label>
+              <Form.Control
+                type="text"
+                id="nombreRegistro"
+                placeholder="Ingrese su nombre"
+                minLength="3"
+                maxLength="25"
+                name="nombre"
+                required
+                className="bgInput"
+                {...register("nombre")}
+              />
+              {errors.nombre && (
+                <div className="text-danger fw-bold">
+                  {errors.nombre.message}
                 </div>
-                </Form>
-            </Modal.Body>
-        </Modal>
-    );
+              )}
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="apellidoRegistro" className="fw-bolder">
+                Apellido
+              </Form.Label>
+              <Form.Control
+                type="text"
+                id="apellidoRegistro"
+                placeholder="Ingrese su apellido"
+                maxLength="25"
+                name="apellido"
+                required
+                className="bgInput"
+                {...register("apellido")}
+              />
+              {errors.apellido && (
+                <div className="text-danger fw-bold">
+                  {errors.apellido.message}
+                </div>
+              )}
+            </Form.Group>
+          </div>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="emailRegistro" className="fw-bolder">
+              Email
+            </Form.Label>
+            <Form.Control
+              type="email"
+              id="emailRegistro"
+              placeholder="Ingrese su email"
+              name="email"
+              required
+              className="bgInput"
+              {...register("email")}
+            />
+            {errors.email && (
+              <div className="text-danger fw-bold">{errors.email.message}</div>
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="telefonoRegistro" className="fw-bolder">
+              Teléfono
+            </Form.Label>
+            <Form.Control
+              type="tel"
+              id="telefonoRegistro"
+              placeholder="Ingresa tu teléfono"
+              maxLength="10"
+              name="Teléfono"
+              required
+              className="bgInput"
+              {...register("telefono")}
+            />
+            {errors.telefono && (
+              <div className="text-danger fw-bold">
+                {errors.telefono.message}
+              </div>
+            )}
+          </Form.Group>
+
+          <div className="d-flex gap-3">
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="passwordRegistro" className="fw-bolder">
+                Contraseña
+              </Form.Label>
+              <Form.Control
+                type="password"
+                id="passwordRegistro"
+                placeholder="Ingrese su contraseña"
+                maxLength="20"
+                minLength="8"
+                name="contrasenia"
+                required
+                className="bgInput"
+                {...register("contrasenia")}
+              />
+              {errors.contrasenia && (
+                <div className="text-danger fw-bold">
+                  {errors.contrasenia.message}
+                </div>
+              )}
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label
+                htmlFor="passwordRegistroRepetir"
+                className="fw-bolder"
+              >
+                Repetir contraseña
+              </Form.Label>
+              <Form.Control
+                type="password"
+                id="passwordRegistroRepetir"
+                placeholder="Repita su contraseña"
+                maxLength="20"
+                minLength="8"
+                name="repetirContrasenia"
+                required
+                className="bgInput"
+                {...register("repetirContrasenia")}
+              />
+              {errors.repetirContrasenia && (
+                <div className="text-danger fw-bold">
+                  {errors.repetirContrasenia.message}
+                </div>
+              )}
+            </Form.Group>
+          </div>
+          {errors.root && (
+            <div className="text-danger fw-bold">{errors.root.message}</div>
+          )}
+
+          <div className="d-flex align-items-center justify-content-center mt-3">
+            <Button
+              type="submit"
+              id="botonRegistrarse"
+              className="btnPersonalized2 mx-1 fw-bold"
+              aria-label="Registrarse"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Registrando..." : "Registrarse"}
+            </Button>
+            <Button
+              type="reset"
+              className="btnPersonalized1 mx-1 fw-bold"
+              aria-label="Cancelar"
+              onClick={() => {
+                handleClose();
+                reset();
+              }}
+            >
+              Cancelar
+            </Button>
+          </div>
+        </Form>
+      </Modal.Body>
+    </Modal>
+  );
 }
 
 export default ModalRegistrarse;
