@@ -9,6 +9,8 @@ import DesarrolladoresPage from "../pages/DesarrolladoresPage";
 import NuestrosPlanesPage from "../pages/NuestrosPlanesPage";
 import LoggedRoutes from "./PrivateRoutes/LoggedRoutes";
 import AdminRoutes from "./PrivateRoutes/AdminRoutes";
+import MisMascotas from "../components/MisMascotas";
+import MisMascotasPage from "../pages/MisMascotasPage";
 
 const RoutesViews = () => {
   const location = useLocation();
@@ -48,20 +50,16 @@ const RoutesViews = () => {
         handleIsLogged={handleIsLogged}
       />
       <Routes>
-        <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
-        {sessionStorage.getItem("userRole") === "admin" ? (
+        {sessionStorage.getItem("userRole") === "admin" && (
           <Route path="/administrador/*" element={<AdminRoutes />} />
-        ) : (
-          <Route path="*" element={<Error404Page />} />
         )}
-        {isLogged ? (
+        {sessionStorage.getItem("userRole") === "user" && (
           <Route path="/*" element={<LoggedRoutes />} />
-        ) : (
-          <Route path="*" element={<Error404Page />} />
         )}
 
+        <Route path="/desarrolladores" element={<DesarrolladoresPage />} />
         <Route path="/nuestros-planes" element={<NuestrosPlanesPage />} />
-
+        {/* <Route path="/mismascotas" element={<MisMascotasPage />} /> */}
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Error404Page />} />
       </Routes>
