@@ -12,4 +12,4 @@ const Bienvenidad = () => {
     );
 }
 
-export default Bienvenidad
+export default Bienvenidad;
